@@ -12,53 +12,53 @@ Shared models, shared business logic, shared authentication — zero duplication
 ## System Diagram
 
 ```
-┌──────────────────┐    ┌──────────────────────────────┐
-│  Flutter Mobile   │    │  Hotwire Web (Browser)       │
-│  (iOS + Android)  │    │                              │
-│                   │    │  Marketing / Landing pages   │
-│  Customer:        │    │  Pricing + Sign-up flow      │
-│  - QR wallet      │    │                              │
-│  - Points view    │    │  Admin Dashboard:            │
-│  - Rewards        │    │  - Analytics (Turbo Frames)  │
-│  - History        │    │  - Campaigns CRUD            │
-│  - Profile        │    │  - Rewards CRUD              │
-│                   │    │  - Staff management          │
-│  Staff:           │    │  - Customer segments         │
-│  - QR scanner     │    │  - Stripe billing portal     │
-│  - Check-in       │    │                              │
-│  - Redemptions    │    │  Tailwind CSS + Stimulus     │
-└────────┬─────────┘    └──────────────┬───────────────┘
-         │ HTTPS/JSON                  │ HTTPS/HTML+Turbo
-         ▼                             ▼
-┌──────────────────────────────────────────────────────┐
-│              Rails 8 (Full App)                      │
-│                                                      │
-│  app/controllers/                                    │
-│    api/v1/       ← JSON responses for Flutter        │
-│    admin/        ← Hotwire views (Turbo + Stimulus)  │
-│    pages/        ← Marketing pages                   │
-│                                                      │
-│  Shared layer:                                       │
-│  - Models & business logic                           │
-│  - Authentication (built-in generator + JWT for API) │
-│  - Stripe billing (subscriptions + Connect)          │
-│  - Solid Queue (background jobs)                     │
-│  - Solid Cache (fragment + API caching)              │
-│  - Solid Cable (real-time via Turbo Streams)         │
-│  - Multi-tenancy (acts_as_tenant)                    │
-│  - Pundit (authorization)                            │
-└──────────────────────┬───────────────────────────────┘
-                       │
-                       ▼
-              ┌──────────────┐  ┌──────────────────┐
-              │  PostgreSQL  │  │   Stripe API     │
-              │  (+ Solid*)  │  │  - Customers     │
-              │  - Tenants   │  │  - Subscriptions │
-              │  - Users     │  │  - Payments      │
-              │  - Points    │  │  - Webhooks      │
-              │  - Rewards   │  │  - Products      │
-              │  - Visits    │  │                  │
-              └──────────────┘  └──────────────────┘
+┌────────────────────┐  ┌────────────────────────────────┐
+│  Flutter Mobile    │  │  Hotwire Web (Browser)         │
+│  (iOS + Android)   │  │                                │
+│                    │  │  Marketing / Landing pages     │
+│  Customer:         │  │  Pricing + Sign-up flow        │
+│  - QR wallet       │  │                                │
+│  - Points view     │  │  Admin Dashboard:              │
+│  - Rewards         │  │  - Analytics (Turbo Frames)    │
+│  - History         │  │  - Campaigns CRUD              │
+│  - Profile         │  │  - Rewards CRUD                │
+│                    │  │  - Staff management            │
+│  Staff:            │  │  - Customer segments           │
+│  - QR scanner      │  │  - Stripe billing portal       │
+│  - Check-in        │  │                                │
+│  - Redemptions     │  │  Tailwind CSS + Stimulus       │
+└─────────┬──────────┘  └───────────────┬────────────────┘
+          │ HTTPS/JSON                  │ HTTPS/HTML+Turbo
+          ▼                             ▼
+┌──────────────────────────────────────────────────────────┐
+│                  Rails 8 (Full App)                      │
+│                                                          │
+│  app/controllers/                                        │
+│    api/v1/       ← JSON responses for Flutter            │
+│    admin/        ← Hotwire views (Turbo + Stimulus)      │
+│    pages/        ← Marketing pages                       │
+│                                                          │
+│  Shared layer:                                           │
+│  - Models & business logic                               │
+│  - Authentication (built-in generator + JWT for API)     │
+│  - Stripe billing (subscriptions + Connect)              │
+│  - Solid Queue (background jobs)                         │
+│  - Solid Cache (fragment + API caching)                  │
+│  - Solid Cable (real-time via Turbo Streams)             │
+│  - Multi-tenancy (acts_as_tenant)                        │
+│  - Pundit (authorization)                                │
+└───────────────────────────┬──────────────────────────────┘
+                            │
+                            ▼
+              ┌──────────────────┐  ┌──────────────────┐
+              │  PostgreSQL      │  │  Stripe API      │
+              │  (+ Solid*)      │  │  - Customers     │
+              │  - Tenants       │  │  - Subscriptions │
+              │  - Users         │  │  - Payments      │
+              │  - Points        │  │  - Webhooks      │
+              │  - Rewards       │  │  - Products      │
+              │  - Visits        │  │                  │
+              └──────────────────┘  └──────────────────┘
 
 * Solid Queue, Solid Cache, and Solid Cable all use
   the same PostgreSQL database — no Redis needed.
