@@ -1,0 +1,33 @@
+<% content_for(:title, @campaign.name) %>
+
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <h1 class="text-2xl font-semibold text-matte"><%= @campaign.name %></h1>
+    <p class="text-secondary text-sm mt-1">
+      <% if @campaign.active_now? %>
+        <span class="text-success">Active now</span>
+      <% end %>
+    </p>
+  </div>
+  <div class="flex items-center gap-2">
+    <%= link_to "Edit", edit_admin_campaign_path(@campaign), class: "px-4 py-2 border border-border text-sm text-matte rounded-xl hover:bg-surface-variant transition-colors" %>
+    <%= link_to "Back", admin_campaigns_path, class: "px-4 py-2 text-secondary text-sm hover:text-matte transition-colors" %>
+  </div>
+</div>
+
+<div class="max-w-2xl bg-surface border border-border rounded-xl p-6">
+  <dl class="space-y-4">
+    <div>
+      <dt class="text-xs text-secondary uppercase tracking-wider font-medium">Multiplier</dt>
+      <dd class="text-matte text-3xl font-mono font-semibold mt-1"><%= @campaign.multiplier %>x</dd>
+    </div>
+    <div>
+      <dt class="text-xs text-secondary uppercase tracking-wider font-medium">Description</dt>
+      <dd class="text-matte text-sm mt-1"><%= @campaign.description %></dd>
+    </div>
+    <div>
+      <dt class="text-xs text-secondary uppercase tracking-wider font-medium">Period</dt>
+      <dd class="text-matte text-sm mt-1"><%= @campaign.starts_at.strftime("%B %d, %Y at %I:%M %p") %> — <%= @campaign.ends_at.strftime("%B %d, %Y at %I:%M %p") %></dd>
+    </div>
+  </dl>
+</div>

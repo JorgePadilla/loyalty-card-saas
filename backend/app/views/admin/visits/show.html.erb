@@ -1,0 +1,29 @@
+<% content_for(:title, "Visit") %>
+<div class="mb-6">
+  <h1 class="text-2xl font-semibold text-matte">Visit Details</h1>
+  <%= link_to "Back to visits", admin_visits_path, class: "text-secondary text-sm hover:text-matte" %>
+</div>
+<div class="max-w-2xl bg-surface border border-border rounded-xl p-6">
+  <dl class="space-y-4">
+    <div>
+      <dt class="text-xs text-secondary uppercase tracking-wider font-medium">Customer</dt>
+      <dd class="text-matte text-sm mt-1"><%= @visit.user.full_name %></dd>
+    </div>
+    <div>
+      <dt class="text-xs text-secondary uppercase tracking-wider font-medium">Service</dt>
+      <dd class="text-matte text-sm mt-1"><%= @visit.service_name %></dd>
+    </div>
+    <div>
+      <dt class="text-xs text-secondary uppercase tracking-wider font-medium">Points Earned</dt>
+      <dd class="text-matte text-2xl font-mono font-semibold mt-1">+<%= @visit.points_earned %></dd>
+    </div>
+    <div>
+      <dt class="text-xs text-secondary uppercase tracking-wider font-medium">Staff</dt>
+      <dd class="text-matte text-sm mt-1"><%= @visit.staff.full_name %></dd>
+    </div>
+    <div>
+      <dt class="text-xs text-secondary uppercase tracking-wider font-medium">Date</dt>
+      <dd class="text-matte text-sm mt-1"><%= @visit.checked_in_at.strftime("%B %d, %Y at %I:%M %p") %></dd>
+    </div>
+  </dl>
+</div>

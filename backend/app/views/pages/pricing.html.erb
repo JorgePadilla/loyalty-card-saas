@@ -1,0 +1,88 @@
+<% content_for(:title, "Pricing") %>
+
+<section class="max-w-6xl mx-auto px-6 pt-24 pb-20">
+  <div class="text-center max-w-2xl mx-auto">
+    <h1 class="text-4xl font-semibold">Simple, transparent pricing</h1>
+    <p class="text-xl text-secondary mt-4">Start free, upgrade as you grow. No hidden fees.</p>
+  </div>
+
+  <div class="grid grid-cols-4 gap-6 mt-16">
+    <!-- Free -->
+    <div class="bg-surface border border-border rounded-xl p-6">
+      <p class="text-sm font-semibold">Free</p>
+      <p class="text-4xl font-mono font-bold mt-4">$0<span class="text-sm font-sans font-normal text-secondary">/mo</span></p>
+      <p class="text-secondary text-sm mt-2">Perfect for trying it out</p>
+      <%= link_to "Get started", new_registration_path, class: "block w-full mt-6 px-4 py-2.5 border border-border text-sm text-center rounded-xl hover:bg-surface-variant transition-colors" %>
+      <ul class="mt-6 space-y-3">
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> 50 customers</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> 1 staff member</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Basic rewards</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> QR check-ins</li>
+      </ul>
+    </div>
+
+    <!-- Starter -->
+    <div class="bg-surface border-2 border-matte rounded-xl p-6 relative">
+      <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-matte text-white text-xs rounded-full">Popular</span>
+      <p class="text-sm font-semibold">Starter</p>
+      <p class="text-4xl font-mono font-bold mt-4">$29<span class="text-sm font-sans font-normal text-secondary">/mo</span></p>
+      <p class="text-secondary text-sm mt-2">For growing businesses</p>
+      <%= link_to "Start free trial", new_registration_path, class: "block w-full mt-6 px-4 py-2.5 bg-matte text-white text-sm text-center rounded-xl hover:bg-matte-hover transition-colors" %>
+      <ul class="mt-6 space-y-3">
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> 500 customers</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> 5 staff members</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Campaigns</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Analytics dashboard</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Customer tiers</li>
+      </ul>
+    </div>
+
+    <!-- Pro -->
+    <div class="bg-surface border border-border rounded-xl p-6">
+      <p class="text-sm font-semibold">Pro</p>
+      <p class="text-4xl font-mono font-bold mt-4">$79<span class="text-sm font-sans font-normal text-secondary">/mo</span></p>
+      <p class="text-secondary text-sm mt-2">For established businesses</p>
+      <%= link_to "Start free trial", new_registration_path, class: "block w-full mt-6 px-4 py-2.5 border border-border text-sm text-center rounded-xl hover:bg-surface-variant transition-colors" %>
+      <ul class="mt-6 space-y-3">
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Unlimited customers</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> 15 staff members</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Advanced analytics</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Custom branding</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Priority support</li>
+      </ul>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="bg-surface border border-border rounded-xl p-6">
+      <p class="text-sm font-semibold">Enterprise</p>
+      <p class="text-4xl font-mono font-bold mt-4">$199<span class="text-sm font-sans font-normal text-secondary">/mo</span></p>
+      <p class="text-secondary text-sm mt-2">For multi-location businesses</p>
+      <a href="#" class="block w-full mt-6 px-4 py-2.5 border border-border text-sm text-center rounded-xl hover:bg-surface-variant transition-colors">Contact us</a>
+      <ul class="mt-6 space-y-3">
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Everything in Pro</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Unlimited staff</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Multiple locations</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> API access</li>
+        <li class="text-sm text-secondary flex items-center gap-2"><span class="text-success text-xs">✓</span> Dedicated support</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="max-w-3xl mx-auto px-6 py-20">
+  <h2 class="text-2xl font-semibold text-center">Frequently asked questions</h2>
+  <div class="mt-12 space-y-6">
+    <% [
+      ["Can I switch plans anytime?", "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately."],
+      ["Is there a free trial?", "Yes, every paid plan comes with a 14-day free trial. No credit card required to start."],
+      ["What happens when I hit my customer limit?", "You'll be notified and can upgrade anytime. Existing customers are never removed."],
+      ["Do my customers need to download an app?", "Customers can use the mobile app for the best experience, but QR codes also work with any phone camera."]
+    ].each do |question, answer| %>
+      <div class="border-b border-border pb-6">
+        <h3 class="text-sm font-semibold"><%= question %></h3>
+        <p class="text-secondary text-sm mt-2"><%= answer %></p>
+      </div>
+    <% end %>
+  </div>
+</section>

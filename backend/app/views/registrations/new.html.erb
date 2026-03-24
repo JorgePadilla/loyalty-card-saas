@@ -1,0 +1,43 @@
+<section class="min-h-[80vh] flex items-center justify-center py-12">
+  <div class="w-full max-w-sm">
+    <div class="text-center mb-8">
+      <h1 class="text-2xl font-semibold">Create your account</h1>
+      <p class="text-secondary text-sm mt-2">Set up your loyalty program in minutes</p>
+    </div>
+
+    <%= form_with url: registration_path, class: "space-y-4" do |f| %>
+      <div>
+        <%= f.label :business_name, "Business name", class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+        <%= f.text_field :business_name, required: true, class: "w-full px-4 py-2.5 bg-surface border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors", placeholder: "Your Barbershop" %>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <%= f.label :first_name, class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+          <%= f.text_field :first_name, required: true, class: "w-full px-4 py-2.5 bg-surface border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors" %>
+        </div>
+        <div>
+          <%= f.label :last_name, class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+          <%= f.text_field :last_name, class: "w-full px-4 py-2.5 bg-surface border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors" %>
+        </div>
+      </div>
+
+      <div>
+        <%= f.label :email_address, "Email", class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+        <%= f.email_field :email_address, required: true, class: "w-full px-4 py-2.5 bg-surface border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors", placeholder: "you@business.com" %>
+      </div>
+
+      <div>
+        <%= f.label :password, class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+        <%= f.password_field :password, required: true, class: "w-full px-4 py-2.5 bg-surface border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors", placeholder: "At least 8 characters" %>
+      </div>
+
+      <%= f.submit "Create account", class: "w-full px-4 py-2.5 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors cursor-pointer" %>
+    <% end %>
+
+    <p class="text-center text-sm text-secondary mt-6">
+      Already have an account?
+      <%= link_to "Sign in", new_session_path, class: "text-matte font-medium hover:underline" %>
+    </p>
+  </div>
+</section>

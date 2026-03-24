@@ -1,0 +1,101 @@
+<% content_for(:title, "Loyalty Programs for Local Businesses") %>
+
+<!-- Hero -->
+<section class="max-w-6xl mx-auto px-6 pt-24 pb-20">
+  <div class="max-w-3xl">
+    <h1 class="text-5xl font-semibold tracking-tight leading-tight">
+      Turn every visit into<br>a lasting relationship
+    </h1>
+    <p class="text-xl text-secondary mt-6 max-w-xl">
+      Beautiful loyalty cards. Effortless check-ins. Real-time insights. Built for barbershops, salons, cafes, and local businesses.
+    </p>
+    <div class="flex items-center gap-4 mt-8">
+      <%= link_to "Start free", new_registration_path, class: "px-6 py-3 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors" %>
+      <%= link_to "See pricing →", pricing_path, class: "text-sm text-secondary hover:text-matte transition-colors" %>
+    </div>
+  </div>
+</section>
+
+<!-- Preview card -->
+<section class="max-w-6xl mx-auto px-6 pb-20">
+  <div class="relative bg-gradient-to-br from-matte via-matte to-gold/30 rounded-2xl p-8 overflow-hidden">
+    <div class="relative z-10 max-w-md">
+      <p class="text-white/50 text-xs uppercase tracking-widest">Demo Barbershop</p>
+      <p class="text-white text-3xl font-mono font-bold mt-4">350 <span class="text-lg font-sans font-normal text-white/60">points</span></p>
+      <p class="text-gold text-sm font-medium mt-2">Silver Member</p>
+      <div class="mt-6 flex items-center gap-4">
+        <div class="w-20 h-20 bg-white rounded-xl flex items-center justify-center">
+          <div class="w-16 h-16 bg-surface-variant rounded grid grid-cols-5 grid-rows-5 gap-px p-1">
+            <% 25.times do %>
+              <div class="bg-matte rounded-sm <%= [true, false].sample ? '' : 'opacity-0' %>"></div>
+            <% end %>
+          </div>
+        </div>
+        <div>
+          <p class="text-white text-sm">Alex Johnson</p>
+          <p class="text-white/40 text-xs">12 visits · 5 visit streak</p>
+        </div>
+      </div>
+    </div>
+    <div class="absolute top-0 right-0 w-64 h-64 bg-gold/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-20 w-48 h-48 bg-gold/10 rounded-full blur-2xl"></div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="max-w-6xl mx-auto px-6 py-20">
+  <p class="text-xs text-secondary uppercase tracking-widest font-medium">How it works</p>
+  <h2 class="text-3xl font-semibold mt-3">Three steps to loyal customers</h2>
+
+  <div class="grid grid-cols-3 gap-8 mt-12">
+    <div>
+      <div class="w-10 h-10 bg-surface-variant rounded-xl flex items-center justify-center text-matte font-mono font-bold text-lg">1</div>
+      <h3 class="text-lg font-semibold mt-4">Set up your program</h3>
+      <p class="text-secondary text-sm mt-2">Create your business, define rewards, and set point values. Takes 5 minutes.</p>
+    </div>
+    <div>
+      <div class="w-10 h-10 bg-surface-variant rounded-xl flex items-center justify-center text-matte font-mono font-bold text-lg">2</div>
+      <h3 class="text-lg font-semibold mt-4">Scan &amp; earn</h3>
+      <p class="text-secondary text-sm mt-2">Customers show their QR code, staff scans it, points are awarded instantly.</p>
+    </div>
+    <div>
+      <div class="w-10 h-10 bg-surface-variant rounded-xl flex items-center justify-center text-matte font-mono font-bold text-lg">3</div>
+      <h3 class="text-lg font-semibold mt-4">Redeem rewards</h3>
+      <p class="text-secondary text-sm mt-2">Customers redeem points for rewards you create. Free haircuts, discounts, products.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Features grid -->
+<section class="max-w-6xl mx-auto px-6 py-20">
+  <p class="text-xs text-secondary uppercase tracking-widest font-medium">Features</p>
+  <h2 class="text-3xl font-semibold mt-3">Everything you need</h2>
+
+  <div class="grid grid-cols-2 gap-6 mt-12">
+    <div class="bg-surface border border-border rounded-xl p-8">
+      <h3 class="text-lg font-semibold">QR Code Check-ins</h3>
+      <p class="text-secondary text-sm mt-2">No app downloads required for staff. Scan customer QR codes with any phone camera. Points awarded instantly.</p>
+    </div>
+    <div class="bg-surface border border-border rounded-xl p-8">
+      <h3 class="text-lg font-semibold">Real-time Dashboard</h3>
+      <p class="text-secondary text-sm mt-2">See visits, points, and redemptions update live. Beautiful analytics without complexity.</p>
+    </div>
+    <div class="bg-surface border border-border rounded-xl p-8">
+      <h3 class="text-lg font-semibold">Smart Campaigns</h3>
+      <p class="text-secondary text-sm mt-2">Run double-points weekends, holiday promotions, and targeted campaigns to drive repeat visits.</p>
+    </div>
+    <div class="bg-surface border border-border rounded-xl p-8">
+      <h3 class="text-lg font-semibold">Customer Tiers</h3>
+      <p class="text-secondary text-sm mt-2">Automatic Bronze → Silver → Gold progression. Unlock exclusive rewards at higher tiers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="max-w-6xl mx-auto px-6 py-20">
+  <div class="bg-matte rounded-2xl p-12 text-center">
+    <h2 class="text-white text-3xl font-semibold">Ready to build loyalty?</h2>
+    <p class="text-white/60 text-lg mt-3">Start free. No credit card required.</p>
+    <%= link_to "Get started →", new_registration_path, class: "inline-block mt-6 px-8 py-3 bg-white text-matte text-sm font-medium rounded-xl hover:bg-cream transition-colors" %>
+  </div>
+</section>

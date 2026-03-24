@@ -1,0 +1,6 @@
+<div class="text-center py-12">
+  <p class="text-secondary text-sm"><%= message %></p>
+  <% if defined?(action_path) && action_path %>
+    <%= link_to action_label, action_path, class: "inline-block mt-4 px-4 py-2 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors" %>
+  <% end %>
+</div>

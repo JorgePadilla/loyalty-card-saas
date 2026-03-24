@@ -1,0 +1,73 @@
+<% content_for(:title, "Subscription") %>
+
+<div class="mb-6">
+  <h1 class="text-2xl font-semibold text-matte">Subscription</h1>
+  <p class="text-secondary text-sm mt-1">Manage your plan and billing</p>
+</div>
+
+<% if params[:checkout] == "success" %>
+  <div class="bg-success/10 border border-success/20 rounded-xl p-4 mb-6">
+    <p class="text-success text-sm font-medium">Your subscription has been updated. It may take a moment to reflect.</p>
+  </div>
+<% elsif params[:checkout] == "canceled" %>
+  <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+    <p class="text-amber-700 text-sm font-medium">Checkout was canceled. No changes were made.</p>
+  </div>
+<% end %>
+
+<div class="max-w-3xl">
+  <!-- Current plan -->
+  <div class="bg-surface border border-border rounded-xl p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-xs text-secondary uppercase tracking-wider font-medium">Current Plan</p>
+        <p class="text-matte text-2xl font-semibold mt-1"><%= @tenant.plan.capitalize %></p>
+      </div>
+      <div class="flex items-center gap-3">
+        <% if @subscription %>
+          <span class="px-3 py-1 <%= @subscription.active? || @subscription.trialing? ? 'bg-success/10 text-success' : 'bg-error/10 text-error' %> text-sm rounded-full"><%= @subscription.status.capitalize %></span>
+        <% end %>
+        <% if @subscription&.stripe_subscription_id&.start_with?("sub_") %>
+          <%= button_to "Manage billing", billing_portal_admin_subscription_path, method: :post, class: "px-4 py-2 border border-border text-sm rounded-xl hover:bg-surface-variant transition-colors" %>
+        <% end %>
+      </div>
+    </div>
+    <% if @subscription&.current_period_end %>
+      <p class="text-secondary text-sm mt-3">Next billing: <%= @subscription.current_period_end.strftime("%B %d, %Y") %></p>
+    <% end %>
+    <% if @subscription&.past_due? %>
+      <p class="text-error text-sm mt-2">Your payment failed. Please update your billing information to avoid service interruption.</p>
+    <% end %>
+  </div>
+
+  <!-- Plan comparison -->
+  <h2 class="text-lg font-semibold text-matte mb-4">Available Plans</h2>
+  <div class="grid grid-cols-4 gap-4">
+    <% [
+      { key: "free", name: "Free", price: "$0", features: ["50 customers", "1 staff member", "Basic rewards", "QR check-ins"] },
+      { key: "starter", name: "Starter", price: "$29", features: ["500 customers", "5 staff members", "Campaigns", "Analytics dashboard", "Customer tiers"] },
+      { key: "pro", name: "Pro", price: "$79", features: ["Unlimited customers", "15 staff members", "Advanced analytics", "Custom branding", "Priority support"] },
+      { key: "enterprise", name: "Enterprise", price: "$199", features: ["Unlimited everything", "Unlimited staff", "Multiple locations", "API access", "Dedicated support"] }
+    ].each do |plan| %>
+      <% is_current = @tenant.plan == plan[:key] %>
+      <div class="bg-surface border <%= is_current ? 'border-matte border-2' : 'border-border' %> rounded-xl p-5">
+        <p class="text-matte text-sm font-semibold"><%= plan[:name] %></p>
+        <p class="text-matte text-2xl font-mono font-semibold mt-2"><%= plan[:price] %><span class="text-secondary text-xs font-sans">/mo</span></p>
+        <ul class="mt-4 space-y-2">
+          <% plan[:features].each do |feature| %>
+            <li class="text-secondary text-xs flex items-center gap-1.5">
+              <span class="text-success">&#10003;</span> <%= feature %>
+            </li>
+          <% end %>
+        </ul>
+        <% if is_current %>
+          <p class="mt-4 text-center text-xs text-secondary font-medium">Current plan</p>
+        <% elsif plan[:key] == "free" %>
+          <p class="mt-4 text-center text-xs text-secondary">Contact support to downgrade</p>
+        <% else %>
+          <%= button_to "Upgrade to #{plan[:name]}", admin_subscription_path(plan: plan[:key]), class: "mt-4 w-full px-4 py-2 bg-matte text-white text-sm text-center rounded-xl hover:bg-matte-hover transition-colors cursor-pointer" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

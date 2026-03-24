@@ -1,0 +1,10 @@
+<% content_for(:title, "New Reward") %>
+
+<div class="mb-6">
+  <h1 class="text-2xl font-semibold text-matte">New Reward</h1>
+  <p class="text-secondary text-sm mt-1">Create a new reward for your customers</p>
+</div>
+
+<div class="max-w-2xl bg-surface border border-border rounded-xl p-6">
+  <%= render "form", reward: @reward %>
+</div>

@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #FAF9F6;
+  --color-surface: #FFFFFF;
+  --color-surface-variant: #F0EFEC;
+  --color-matte: #1A1A1A;
+  --color-matte-hover: #2C2C2C;
+  --color-secondary: #6B6B6B;
+  --color-tertiary: #9E9E9E;
+  --color-border: #E5E4E1;
+  --color-gold: #C9A84C;
+  --color-gold-light: #E8D48B;
+  --color-success: #2D6A4F;
+  --color-danger: #C1292E;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+}

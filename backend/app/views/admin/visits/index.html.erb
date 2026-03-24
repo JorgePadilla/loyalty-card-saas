@@ -1,0 +1,37 @@
+<% content_for(:title, "Visits") %>
+
+<div class="mb-6">
+  <h1 class="text-2xl font-semibold text-matte">Visits</h1>
+  <p class="text-secondary text-sm mt-1">Recent customer check-ins</p>
+</div>
+
+<div class="bg-surface border border-border rounded-xl overflow-hidden">
+  <% if @visits.any? %>
+    <table class="w-full">
+      <thead>
+        <tr class="border-b border-border">
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Customer</th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Service</th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Staff</th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Points</th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @visits.each do |visit| %>
+          <tr class="border-b border-border last:border-0 hover:bg-surface-variant/50 transition-colors">
+            <td class="px-6 py-4">
+              <%= link_to visit.user.full_name, admin_user_path(visit.user), class: "text-matte text-sm font-medium hover:underline" %>
+            </td>
+            <td class="px-6 py-4 text-secondary text-sm"><%= visit.service_name %></td>
+            <td class="px-6 py-4 text-secondary text-sm"><%= visit.staff.full_name %></td>
+            <td class="px-6 py-4 text-matte text-sm font-mono">+<%= visit.points_earned %></td>
+            <td class="px-6 py-4 text-secondary text-xs"><%= visit.checked_in_at.strftime("%b %d, %Y %I:%M %p") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <%= render "shared/empty_state", message: "No visits yet" %>
+  <% end %>
+</div>

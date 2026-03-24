@@ -1,0 +1,46 @@
+<%= form_with(model: [:admin, campaign], class: "space-y-6") do |f| %>
+  <% if campaign.errors.any? %>
+    <div class="px-4 py-3 bg-danger/10 text-danger text-sm rounded-xl border border-danger/20">
+      <ul class="list-disc list-inside">
+        <% campaign.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name, class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+    <%= f.text_field :name, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors", placeholder: "Weekend Double Points" %>
+  </div>
+
+  <div>
+    <%= f.label :description, class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+    <%= f.text_area :description, rows: 3, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors resize-none" %>
+  </div>
+
+  <div class="grid grid-cols-3 gap-6">
+    <div>
+      <%= f.label :multiplier, class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+      <%= f.number_field :multiplier, step: 0.5, min: 1, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte font-mono focus:outline-none focus:border-matte transition-colors" %>
+    </div>
+    <div>
+      <%= f.label :starts_at, "Start Date", class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+      <%= f.datetime_local_field :starts_at, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors" %>
+    </div>
+    <div>
+      <%= f.label :ends_at, "End Date", class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+      <%= f.datetime_local_field :ends_at, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors" %>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <%= f.check_box :active, class: "rounded border-border text-matte focus:ring-matte" %>
+    <%= f.label :active, "Active — campaign is live", class: "text-sm text-matte" %>
+  </div>
+
+  <div class="flex items-center gap-3 pt-4 border-t border-border">
+    <%= f.submit class: "px-6 py-2.5 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors cursor-pointer" %>
+    <%= link_to "Cancel", admin_campaigns_path, class: "px-6 py-2.5 text-secondary text-sm hover:text-matte transition-colors" %>
+  </div>
+<% end %>

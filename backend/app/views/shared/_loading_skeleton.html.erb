@@ -1,0 +1,11 @@
+<div class="animate-pulse space-y-3">
+  <% (defined?(lines) ? lines : 3).times do %>
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-border"></div>
+      <div class="flex-1 space-y-2">
+        <div class="h-3 bg-border rounded w-3/4"></div>
+        <div class="h-2 bg-border rounded w-1/2"></div>
+      </div>
+    </div>
+  <% end %>
+</div>

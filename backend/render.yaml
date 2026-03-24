@@ -1,0 +1,38 @@
+databases:
+  - name: loyalty-saas-db
+    plan: starter
+    databaseName: loyalty_saas_production
+    user: loyalty_saas
+    postgresMajorVersion: 17
+
+services:
+  - type: web
+    name: loyalty-saas
+    runtime: docker
+    plan: starter
+    healthCheckPath: /up
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: loyalty-saas-db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_STARTER_PRICE_ID
+        sync: false
+      - key: STRIPE_PRO_PRICE_ID
+        sync: false
+      - key: STRIPE_ENTERPRISE_PRICE_ID
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: RAILS_LOG_LEVEL
+        value: info
+      - key: RAILS_ENV
+        value: production

@@ -1,0 +1,15 @@
+<% if pagy && pagy.pages > 1 %>
+  <nav class="flex items-center justify-between mt-6 pt-4 border-t border-border">
+    <p class="text-secondary text-sm">
+      Showing <%= pagy.from %>-<%= pagy.to %> of <%= pagy.count %>
+    </p>
+    <div class="flex gap-1">
+      <% if pagy.prev %>
+        <%= link_to "Previous", url_for(page: pagy.prev), class: "px-3 py-1.5 text-sm text-secondary hover:text-matte border border-border rounded-lg hover:bg-surface-variant transition-colors" %>
+      <% end %>
+      <% if pagy.next %>
+        <%= link_to "Next", url_for(page: pagy.next), class: "px-3 py-1.5 text-sm text-secondary hover:text-matte border border-border rounded-lg hover:bg-surface-variant transition-colors" %>
+      <% end %>
+    </div>
+  </nav>
+<% end %>

@@ -34,3 +34,7 @@ mobile/ios/Pods/
 mobile/ios/.symlinks/
 mobile/android/.gradle/
 mobile/android/local.properties
+
+# Worktree artifacts
+*.orig
+*.rej

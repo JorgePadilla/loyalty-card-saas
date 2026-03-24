@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= content_for?(:title) ? "#{yield(:title)} — " : "" %>Loyalty Card</title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "White-label loyalty program for your business. Reward your customers, grow your revenue." %>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+<body class="bg-cream font-sans text-matte antialiased">
+  <!-- Navigation -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-cream/80 backdrop-blur-lg border-b border-border">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="text-lg font-semibold tracking-tight">Loyalty Card</a>
+      <div class="flex items-center gap-8">
+        <%= link_to "Features", features_path, class: "text-sm text-secondary hover:text-matte transition-colors" %>
+        <%= link_to "Pricing", pricing_path, class: "text-sm text-secondary hover:text-matte transition-colors" %>
+        <%= link_to "Sign in", new_session_path, class: "text-sm text-secondary hover:text-matte transition-colors" %>
+        <%= link_to "Get Started", new_registration_path, class: "px-4 py-2 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors" %>
+      </div>
+    </nav>
+  </header>
+
+  <main class="pt-16">
+    <% if flash[:notice] %>
+      <div class="max-w-6xl mx-auto px-6 mt-4">
+        <div class="px-4 py-3 bg-success/10 text-success text-sm rounded-xl border border-success/20"><%= flash[:notice] %></div>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="max-w-6xl mx-auto px-6 mt-4">
+        <div class="px-4 py-3 bg-danger/10 text-danger text-sm rounded-xl border border-danger/20"><%= flash[:alert] %></div>
+      </div>
+    <% end %>
+
+    <%= yield %>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-border mt-24">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-4 gap-8">
+        <div>
+          <p class="text-lg font-semibold tracking-tight">Loyalty Card</p>
+          <p class="text-secondary text-sm mt-2">White-label loyalty programs for local businesses.</p>
+        </div>
+        <div>
+          <p class="text-xs text-secondary uppercase tracking-wider font-medium mb-3">Product</p>
+          <div class="space-y-2">
+            <%= link_to "Features", features_path, class: "block text-sm text-secondary hover:text-matte transition-colors" %>
+            <%= link_to "Pricing", pricing_path, class: "block text-sm text-secondary hover:text-matte transition-colors" %>
+          </div>
+        </div>
+        <div>
+          <p class="text-xs text-secondary uppercase tracking-wider font-medium mb-3">Company</p>
+          <div class="space-y-2">
+            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors">About</a>
+            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors">Contact</a>
+          </div>
+        </div>
+        <div>
+          <p class="text-xs text-secondary uppercase tracking-wider font-medium mb-3">Legal</p>
+          <div class="space-y-2">
+            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors">Privacy</a>
+            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors">Terms</a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-12 pt-6 border-t border-border">
+        <p class="text-secondary text-xs">&copy; <%= Date.current.year %> Loyalty Card. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

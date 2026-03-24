@@ -1,0 +1,7 @@
+<div class="bg-surface border border-border rounded-xl p-6">
+  <p class="text-secondary text-xs uppercase tracking-wider font-medium"><%= label %></p>
+  <p class="text-matte text-3xl font-mono font-semibold mt-2"><%= value %></p>
+  <% if defined?(subtitle) && subtitle %>
+    <p class="text-secondary text-sm mt-1"><%= subtitle %></p>
+  <% end %>
+</div>

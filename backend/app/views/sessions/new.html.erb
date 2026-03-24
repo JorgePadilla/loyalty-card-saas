@@ -1,0 +1,27 @@
+<section class="min-h-[80vh] flex items-center justify-center">
+  <div class="w-full max-w-sm">
+    <div class="text-center mb-8">
+      <h1 class="text-2xl font-semibold">Sign in</h1>
+      <p class="text-secondary text-sm mt-2">Welcome back to your dashboard</p>
+    </div>
+
+    <%= form_with url: session_path, class: "space-y-4" do |f| %>
+      <div>
+        <%= f.label :email_address, "Email", class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+        <%= f.email_field :email_address, autofocus: true, autocomplete: "email", required: true, class: "w-full px-4 py-2.5 bg-surface border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors", placeholder: "you@business.com" %>
+      </div>
+
+      <div>
+        <%= f.label :password, class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+        <%= f.password_field :password, autocomplete: "current-password", required: true, class: "w-full px-4 py-2.5 bg-surface border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors" %>
+      </div>
+
+      <%= f.submit "Sign in", class: "w-full px-4 py-2.5 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors cursor-pointer" %>
+    <% end %>
+
+    <p class="text-center text-sm text-secondary mt-6">
+      Don't have an account?
+      <%= link_to "Sign up", new_registration_path, class: "text-matte font-medium hover:underline" %>
+    </p>
+  </div>
+</section>

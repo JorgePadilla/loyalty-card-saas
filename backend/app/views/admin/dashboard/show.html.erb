@@ -1,0 +1,121 @@
+<% content_for(:title, "Dashboard") %>
+
+<%= turbo_stream_from "dashboard_#{current_user.tenant_id}" %>
+
+<div class="mb-6">
+  <h1 class="text-2xl font-semibold text-matte">Dashboard</h1>
+  <p class="text-secondary text-sm mt-1">Overview of your loyalty program</p>
+</div>
+
+<!-- Row 1: Stats -->
+<div class="grid grid-cols-4 gap-4 mb-4">
+  <div id="customers_stat">
+    <%= render "shared/stat_card", label: "Total Customers", value: @total_customers %>
+  </div>
+  <div id="visits_today_stat">
+    <%= render "shared/stat_card", label: "Visits Today", value: @visits_today %>
+  </div>
+  <div id="points_week_stat">
+    <%= render "shared/stat_card", label: "Points This Week", value: number_with_delimiter(@points_this_week) %>
+  </div>
+  <div id="pending_redemptions_stat">
+    <%= render "shared/stat_card", label: "Pending Redemptions", value: @pending_redemptions %>
+  </div>
+</div>
+
+<!-- Row 2: Chart + Quick Actions -->
+<div class="grid grid-cols-4 gap-4 mb-4">
+  <div class="col-span-3 bg-surface border border-border rounded-xl p-6">
+    <h3 class="text-matte text-sm font-semibold mb-4">Visits — Last 30 Days</h3>
+    <%= line_chart @visits_chart_data, colors: ["#1A1A1A"], library: { plugins: { legend: { display: false } } } %>
+  </div>
+
+  <div class="bg-surface border border-border rounded-xl p-6">
+    <h3 class="text-matte text-sm font-semibold mb-4">Quick Actions</h3>
+    <div class="space-y-2">
+      <%= link_to "New Reward", new_admin_reward_path, class: "block w-full px-4 py-2.5 bg-matte text-white text-sm text-center rounded-xl hover:bg-matte-hover transition-colors" %>
+      <%= link_to "New Campaign", new_admin_campaign_path, class: "block w-full px-4 py-2.5 bg-matte text-white text-sm text-center rounded-xl hover:bg-matte-hover transition-colors" %>
+      <%= link_to "Add Staff", new_admin_user_path, class: "block w-full px-4 py-2.5 border border-border text-matte text-sm text-center rounded-xl hover:bg-surface-variant transition-colors" %>
+    </div>
+  </div>
+</div>
+
+<!-- Row 3: Recent Activity + Top Customers -->
+<div class="grid grid-cols-2 gap-4 mb-4">
+  <div class="bg-surface border border-border rounded-xl p-6">
+    <h3 class="text-matte text-sm font-semibold mb-4">Recent Activity</h3>
+    <div id="recent_activity">
+      <%= render "admin/dashboard/recent_activity", recent_visits: @recent_visits %>
+    </div>
+  </div>
+
+  <div class="bg-surface border border-border rounded-xl p-6">
+    <h3 class="text-matte text-sm font-semibold mb-4">Top Customers</h3>
+    <% if @top_customers.any? %>
+      <div class="space-y-3">
+        <% @top_customers.each_with_index do |card, i| %>
+          <div class="flex items-center gap-3 py-2 border-b border-border last:border-0">
+            <span class="text-secondary text-xs font-mono w-4"><%= i + 1 %></span>
+            <div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-matte text-xs font-semibold">
+              <%= card.user.first_name&.first&.upcase %>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-matte text-sm font-medium truncate"><%= card.user.full_name %></p>
+              <p class="text-secondary text-xs"><%= card.visits_count %> visits</p>
+            </div>
+            <p class="text-matte text-sm font-mono font-semibold"><%= number_with_delimiter(card.total_points) %> pts</p>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <%= render "shared/empty_state", message: "No customers yet" %>
+    <% end %>
+  </div>
+</div>
+
+<!-- Row 4: Active Campaigns + Rewards Overview -->
+<div class="grid grid-cols-2 gap-4">
+  <div class="bg-surface border border-border rounded-xl p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-matte text-sm font-semibold">Active Campaigns</h3>
+      <%= link_to "View all", admin_campaigns_path, class: "text-secondary text-xs hover:text-matte transition-colors" %>
+    </div>
+    <% if @active_campaigns.any? %>
+      <div class="space-y-3">
+        <% @active_campaigns.each do |campaign| %>
+          <div class="py-2 border-b border-border last:border-0">
+            <div class="flex items-center justify-between">
+              <p class="text-matte text-sm font-medium"><%= campaign.name %></p>
+              <span class="px-2 py-0.5 bg-gold/10 text-gold text-xs font-mono rounded-full"><%= campaign.multiplier %>x</span>
+            </div>
+            <p class="text-secondary text-xs mt-1">Ends <%= time_ago_in_words(campaign.ends_at) %></p>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <%= render "shared/empty_state", message: "No active campaigns" %>
+    <% end %>
+  </div>
+
+  <div class="bg-surface border border-border rounded-xl p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-matte text-sm font-semibold">Rewards</h3>
+      <%= link_to "Manage", admin_rewards_path, class: "text-secondary text-xs hover:text-matte transition-colors" %>
+    </div>
+    <% if @rewards.any? %>
+      <div class="space-y-3">
+        <% @rewards.each do |reward| %>
+          <div class="flex items-center justify-between py-2 border-b border-border last:border-0">
+            <div>
+              <p class="text-matte text-sm font-medium"><%= reward.name %></p>
+              <p class="text-secondary text-xs"><%= reward.reward_type.humanize %></p>
+            </div>
+            <span class="text-matte text-sm font-mono font-medium"><%= reward.points_cost %> pts</span>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <%= render "shared/empty_state", message: "No rewards configured", action_path: new_admin_reward_path, action_label: "Create Reward" %>
+    <% end %>
+  </div>
+</div>

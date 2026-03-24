@@ -1,0 +1,11 @@
+<div class="bg-surface border border-border rounded-xl p-6 <%= defined?(classes) ? classes : '' %>">
+  <% if defined?(title) && title %>
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-matte text-sm font-semibold"><%= title %></h3>
+      <% if defined?(action) && action %>
+        <%= action %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= yield %>
+</div>
