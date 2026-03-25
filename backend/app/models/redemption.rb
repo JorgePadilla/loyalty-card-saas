@@ -15,7 +15,7 @@ class Redemption < ApplicationRecord
   private
 
   def broadcast_pending_count
-    broadcast_replace_to(
+    Turbo::StreamsChannel.broadcast_replace_to(
       "dashboard_#{tenant_id}",
       target: "pending_redemptions_stat",
       partial: "shared/stat_card",

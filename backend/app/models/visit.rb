@@ -16,13 +16,13 @@ class Visit < ApplicationRecord
   private
 
   def broadcast_dashboard_update
-    broadcast_replace_to(
+    Turbo::StreamsChannel.broadcast_replace_to(
       "dashboard_#{tenant_id}",
       target: "visits_today_stat",
       partial: "shared/stat_card",
       locals: { label: "Visits Today", value: Visit.today.count }
     )
-    broadcast_replace_to(
+    Turbo::StreamsChannel.broadcast_replace_to(
       "dashboard_#{tenant_id}",
       target: "recent_activity",
       partial: "admin/dashboard/recent_activity",
