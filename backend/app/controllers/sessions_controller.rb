@@ -12,6 +12,10 @@ class SessionsController < ApplicationController
     else
       redirect_to new_session_path, alert: "Try another email address or password."
     end
+  rescue => e
+    Rails.logger.error "[LOGIN ERROR] #{e.class}: #{e.message}"
+    Rails.logger.error e.backtrace&.first(10)&.join("\n")
+    raise
   end
 
   def destroy
