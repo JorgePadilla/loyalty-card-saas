@@ -1,5 +1,6 @@
 class Admin::BaseController < ApplicationController
   include Pundit::Authorization
+  include Pagy::Method
 
   layout "admin"
 

@@ -6,11 +6,12 @@ class Admin::UsersController < Admin::BaseController
   def index
     authorize User
     @role_filter = params[:role]
-    @users = if @role_filter.present?
+    scope = if @role_filter.present?
       User.where(role: @role_filter)
     else
       User.all
-    end.order(created_at: :desc)
+    end.includes(:loyalty_card).order(created_at: :desc)
+    @pagy, @users = pagy(scope)
   end
 
   def show

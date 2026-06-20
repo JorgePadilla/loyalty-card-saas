@@ -3,7 +3,7 @@ class Admin::CampaignsController < Admin::BaseController
 
   def index
     authorize Campaign
-    @campaigns = Campaign.order(created_at: :desc)
+    @pagy, @campaigns = pagy(Campaign.order(created_at: :desc))
   end
 
   def show

@@ -3,7 +3,7 @@ class Admin::RewardsController < Admin::BaseController
 
   def index
     authorize Reward
-    @rewards = Reward.order(created_at: :desc)
+    @pagy, @rewards = pagy(Reward.order(created_at: :desc))
   end
 
   def show

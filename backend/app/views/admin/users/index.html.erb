@@ -3,7 +3,7 @@
 <div class="flex items-center justify-between mb-6">
   <div>
     <h1 class="text-2xl font-semibold text-matte"><%= t("admin.users.index.title") %></h1>
-    <p class="text-secondary text-sm mt-1"><%= t("admin.users.index.count", count: @users.count) %></p>
+    <p class="text-secondary text-sm mt-1"><%= t("admin.users.index.count", count: @pagy.count) %></p>
   </div>
   <% if policy(User).create? %>
     <%= link_to t("admin.users.index.add_user"), new_admin_user_path, class: "px-4 py-2.5 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors" %>
@@ -63,3 +63,5 @@
     <%= render "shared/empty_state", message: t("admin.users.index.empty") %>
   <% end %>
 </div>
+
+<%= render "shared/pagination", pagy: @pagy %>

@@ -1,7 +1,7 @@
 class Admin::VisitsController < Admin::BaseController
   def index
     authorize Visit
-    @visits = Visit.recent.includes(:user, :staff).limit(50)
+    @pagy, @visits = pagy(Visit.recent.includes(:user, :staff))
   end
 
   def show

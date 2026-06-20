@@ -1,0 +1,5 @@
+es:
+  pagination:
+    showing: "Mostrando %{from}–%{to} de %{total}"
+    previous: "Anterior"
+    next: "Siguiente"

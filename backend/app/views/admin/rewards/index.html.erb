@@ -56,3 +56,5 @@
     <%= render "shared/empty_state", message: t("admin.rewards.index.empty"), action_path: (new_admin_reward_path if policy(Reward).create?), action_label: t("admin.rewards.index.create_action") %>
   <% end %>
 </div>
+
+<%= render "shared/pagination", pagy: @pagy %>
