@@ -31,7 +31,7 @@
               <span class="px-2 py-0.5 bg-gold/10 text-gold text-sm font-mono rounded-full"><%= campaign.multiplier %>x</span>
             </td>
             <td class="px-6 py-4 text-secondary text-xs">
-              <%= campaign.starts_at.strftime("%b %d") %> — <%= campaign.ends_at.strftime("%b %d, %Y") %>
+              <%= l(campaign.starts_at.to_date, format: :short_md) %> — <%= l(campaign.ends_at.to_date, format: :medium) %>
             </td>
             <td class="px-6 py-4">
               <% if campaign.active_now? %>

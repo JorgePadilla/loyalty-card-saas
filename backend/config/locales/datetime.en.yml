@@ -1,0 +1,10 @@
+en:
+  date:
+    formats:
+      medium: "%b %d, %Y"
+      long: "%B %d, %Y"
+      short_md: "%b %d"
+  time:
+    formats:
+      long_datetime: "%B %d, %Y at %I:%M %p"
+      visit: "%b %d, %Y %I:%M %p"

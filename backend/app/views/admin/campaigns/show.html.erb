@@ -27,7 +27,7 @@
     </div>
     <div>
       <dt class="text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.campaigns.show.period") %></dt>
-      <dd class="text-matte text-sm mt-1"><%= @campaign.starts_at.strftime("%B %d, %Y at %I:%M %p") %> — <%= @campaign.ends_at.strftime("%B %d, %Y at %I:%M %p") %></dd>
+      <dd class="text-matte text-sm mt-1"><%= l(@campaign.starts_at, format: :long_datetime) %> — <%= l(@campaign.ends_at, format: :long_datetime) %></dd>
     </div>
   </dl>
 </div>

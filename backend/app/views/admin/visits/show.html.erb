@@ -23,7 +23,7 @@
     </div>
     <div>
       <dt class="text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.visits.show.date") %></dt>
-      <dd class="text-matte text-sm mt-1"><%= @visit.checked_in_at.strftime("%B %d, %Y at %I:%M %p") %></dd>
+      <dd class="text-matte text-sm mt-1"><%= l(@visit.checked_in_at, format: :long_datetime) %></dd>
     </div>
   </dl>
 </div>

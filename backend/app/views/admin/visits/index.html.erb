@@ -26,7 +26,7 @@
             <td class="px-6 py-4 text-secondary text-sm"><%= visit.service_name %></td>
             <td class="px-6 py-4 text-secondary text-sm"><%= visit.staff.full_name %></td>
             <td class="px-6 py-4 text-matte text-sm font-mono">+<%= visit.points_earned %></td>
-            <td class="px-6 py-4 text-secondary text-xs"><%= visit.checked_in_at.strftime("%b %d, %Y %I:%M %p") %></td>
+            <td class="px-6 py-4 text-secondary text-xs"><%= l(visit.checked_in_at, format: :visit) %></td>
           </tr>
         <% end %>
       </tbody>

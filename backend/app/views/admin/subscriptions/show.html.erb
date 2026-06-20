@@ -33,7 +33,7 @@
       </div>
     </div>
     <% if @subscription&.current_period_end %>
-      <p class="text-secondary text-sm mt-3"><%= t("admin.subscriptions.show.next_billing", date: @subscription.current_period_end.strftime("%B %d, %Y")) %></p>
+      <p class="text-secondary text-sm mt-3"><%= t("admin.subscriptions.show.next_billing", date: l(@subscription.current_period_end.to_date, format: :long)) %></p>
     <% end %>
     <% if @subscription&.past_due? %>
       <p class="text-error text-sm mt-2"><%= t("admin.subscriptions.show.past_due_warning") %></p>

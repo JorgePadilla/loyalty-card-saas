@@ -36,7 +36,7 @@
           </div>
           <div class="text-right">
             <p class="text-matte text-sm font-mono">+<%= visit.points_earned %> <%= t("admin.common.points_abbr") %></p>
-            <p class="text-secondary text-xs"><%= visit.checked_in_at.strftime("%b %d, %Y") %></p>
+            <p class="text-secondary text-xs"><%= l(visit.checked_in_at.to_date, format: :medium) %></p>
           </div>
         </div>
       <% end %>

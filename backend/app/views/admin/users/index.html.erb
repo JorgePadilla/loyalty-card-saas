@@ -47,7 +47,7 @@
             <td class="px-6 py-4 text-matte text-sm font-mono">
               <%= user.loyalty_card&.current_points || t("admin.common.em_dash") %>
             </td>
-            <td class="px-6 py-4 text-secondary text-xs"><%= user.created_at.strftime("%b %d, %Y") %></td>
+            <td class="px-6 py-4 text-secondary text-xs"><%= l(user.created_at.to_date, format: :medium) %></td>
             <td class="px-6 py-4 text-right">
               <%= link_to t("admin.common.edit"), edit_admin_user_path(user), class: "text-secondary text-sm hover:text-matte transition-colors" %>
             </td>
