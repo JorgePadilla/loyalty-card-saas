@@ -5,12 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/providers/auth_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../core/widgets/language_selector.dart';
+import '../../../l10n/app_localizations.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final auth = ref.watch(authProvider);
     final user = auth.user;
     final firstName = user?['first_name'] as String? ?? '';
@@ -22,7 +25,7 @@ class ProfileScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColors.cream,
       appBar: AppBar(
-        title: Text('Profile', style: AppTypography.titleMedium),
+        title: Text(l10n.profileTitle, style: AppTypography.titleMedium),
         backgroundColor: AppColors.cream,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
@@ -67,7 +70,7 @@ class ProfileScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        fullName.isNotEmpty ? fullName : 'Member',
+                        fullName.isNotEmpty ? fullName : l10n.profileMember,
                         style: AppTypography.titleSmall,
                       ),
                       const SizedBox(height: 2),
@@ -83,7 +86,7 @@ class ProfileScreen extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
-                          _roleLabel(role),
+                          _roleLabel(l10n, role),
                           style: AppTypography.labelSmall.copyWith(
                             fontWeight: FontWeight.w600,
                             color: AppColors.matte,
@@ -99,10 +102,16 @@ class ProfileScreen extends ConsumerWidget {
           const SizedBox(height: 24),
 
           // -----------------------------------------------------------------
+          // Language section
+          // -----------------------------------------------------------------
+          const LanguageSelector(),
+          const SizedBox(height: 24),
+
+          // -----------------------------------------------------------------
           // Settings section
           // -----------------------------------------------------------------
           Text(
-            'Settings',
+            l10n.profileSettings,
             style: AppTypography.labelMedium.copyWith(
               fontWeight: FontWeight.w600,
               letterSpacing: 0.5,
@@ -111,17 +120,17 @@ class ProfileScreen extends ConsumerWidget {
           const SizedBox(height: 10),
           _SettingsTile(
             icon: Icons.notifications_outlined,
-            label: 'Notifications',
+            label: l10n.profileNotifications,
             onTap: () {},
           ),
           _SettingsTile(
             icon: Icons.help_outline_rounded,
-            label: 'Help & Support',
+            label: l10n.profileHelpSupport,
             onTap: () {},
           ),
           _SettingsTile(
             icon: Icons.info_outline_rounded,
-            label: 'About',
+            label: l10n.profileAbout,
             onTap: () {},
           ),
           const SizedBox(height: 32),
@@ -140,7 +149,7 @@ class ProfileScreen extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: Text('Sign Out', style: AppTypography.labelLarge),
+              child: Text(l10n.profileSignOut, style: AppTypography.labelLarge),
             ),
           ),
         ],
@@ -154,9 +163,17 @@ class ProfileScreen extends ConsumerWidget {
     return '$f$l'.isNotEmpty ? '$f$l' : '?';
   }
 
-  String _roleLabel(String role) {
-    if (role.isEmpty) return 'Customer';
-    return role[0].toUpperCase() + role.substring(1);
+  String _roleLabel(AppLocalizations l10n, String role) {
+    switch (role) {
+      case 'owner':
+        return l10n.profileRoleOwner;
+      case 'manager':
+        return l10n.profileRoleManager;
+      case 'staff':
+        return l10n.profileRoleStaff;
+      default:
+        return l10n.profileRoleCustomer;
+    }
   }
 }
 

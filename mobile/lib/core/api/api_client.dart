@@ -32,6 +32,18 @@ class ApiClient {
       ),
     );
 
+    // Locale interceptor — sends the user's language so the API localizes
+    // error messages to match the app.
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final locale = await _secureStorage.getLocale();
+          options.headers['Accept-Language'] = locale ?? 'en';
+          handler.next(options);
+        },
+      ),
+    );
+
     // Auth interceptor — attaches token, handles refresh.
     _dio.interceptors.add(
       AuthInterceptor(

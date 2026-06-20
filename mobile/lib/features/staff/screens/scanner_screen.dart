@@ -6,6 +6,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../l10n/app_localizations.dart';
 import '../providers/staff_provider.dart';
 
 // ---------------------------------------------------------------------------
@@ -107,7 +108,7 @@ class _ScannerScreenState extends ConsumerState<ScannerScreen> {
             left: 0,
             right: 0,
             child: Text(
-              'Scan customer QR code',
+              AppLocalizations.of(context).scannerLabel,
               textAlign: TextAlign.center,
               style: AppTypography.titleSmall.copyWith(
                 color: Colors.white,
@@ -413,6 +414,7 @@ class _CheckInSheetState extends ConsumerState<_CheckInSheet> {
   // Form view
   // -----------------------------------------------------------------------
   Widget _buildForm(bool isLoading) {
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
       child: Column(
@@ -432,11 +434,11 @@ class _CheckInSheetState extends ConsumerState<_CheckInSheet> {
           ),
           const SizedBox(height: 24),
 
-          Text('Check In Customer', style: AppTypography.titleMedium),
+          Text(l10n.scannerCheckInTitle, style: AppTypography.titleMedium),
           const SizedBox(height: 20),
 
           // Service dropdown
-          Text('Service', style: AppTypography.labelMedium),
+          Text(l10n.scannerServiceLabel, style: AppTypography.labelMedium),
           const SizedBox(height: 6),
           Container(
             decoration: BoxDecoration(
@@ -464,7 +466,7 @@ class _CheckInSheetState extends ConsumerState<_CheckInSheet> {
           const SizedBox(height: 16),
 
           // Amount field
-          Text('Amount (\$)', style: AppTypography.labelMedium),
+          Text(l10n.scannerAmountLabel, style: AppTypography.labelMedium),
           const SizedBox(height: 6),
           Container(
             decoration: BoxDecoration(
@@ -511,7 +513,7 @@ class _CheckInSheetState extends ConsumerState<_CheckInSheet> {
                         strokeWidth: 2,
                       ),
                     )
-                  : Text('Check In', style: AppTypography.labelLarge.copyWith(color: Colors.white)),
+                  : Text(l10n.scannerCheckInButton, style: AppTypography.labelLarge.copyWith(color: Colors.white)),
             ),
           ),
         ],
@@ -523,7 +525,9 @@ class _CheckInSheetState extends ConsumerState<_CheckInSheet> {
   // Success view
   // -----------------------------------------------------------------------
   Widget _buildSuccess(Map<String, dynamic> result) {
-    final customerName = result['customer_name'] as String? ?? 'Customer';
+    final l10n = AppLocalizations.of(context);
+    final customerName =
+        result['customer_name'] as String? ?? l10n.commonCustomer;
     final pointsAwarded = result['points_earned'] as int? ?? 0;
 
     return Padding(
@@ -564,7 +568,7 @@ class _CheckInSheetState extends ConsumerState<_CheckInSheet> {
               .fade(duration: 200.ms),
           const SizedBox(height: 20),
 
-          Text('Check-in Successful', style: AppTypography.titleMedium),
+          Text(l10n.scannerCheckInSuccessTitle, style: AppTypography.titleMedium),
           const SizedBox(height: 8),
           Text(
             customerName,
@@ -572,7 +576,7 @@ class _CheckInSheetState extends ConsumerState<_CheckInSheet> {
           ),
           const SizedBox(height: 12),
           Text(
-            '+$pointsAwarded pts',
+            l10n.scannerPointsAwarded(pointsAwarded),
             style: GoogleFonts.spaceGrotesk(
               fontSize: 28,
               fontWeight: FontWeight.w700,
@@ -596,7 +600,7 @@ class _CheckInSheetState extends ConsumerState<_CheckInSheet> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: Text('Scan Next', style: AppTypography.labelLarge),
+              child: Text(l10n.scannerScanNextButton, style: AppTypography.labelLarge),
             ),
           ),
         ],
@@ -608,6 +612,7 @@ class _CheckInSheetState extends ConsumerState<_CheckInSheet> {
   // Error view
   // -----------------------------------------------------------------------
   Widget _buildError(String error) {
+    final l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
       child: Column(
@@ -637,7 +642,7 @@ class _CheckInSheetState extends ConsumerState<_CheckInSheet> {
           ),
           const SizedBox(height: 20),
 
-          Text('Check-in Failed', style: AppTypography.titleMedium),
+          Text(l10n.scannerCheckInFailedTitle, style: AppTypography.titleMedium),
           const SizedBox(height: 8),
           Text(
             error,
@@ -661,7 +666,7 @@ class _CheckInSheetState extends ConsumerState<_CheckInSheet> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: Text('Try Again', style: AppTypography.labelLarge),
+              child: Text(l10n.scannerTryAgainButton, style: AppTypography.labelLarge),
             ),
           ),
         ],

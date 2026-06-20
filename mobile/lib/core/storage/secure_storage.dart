@@ -15,6 +15,7 @@ class SecureStorage {
   static const _accessTokenKey = 'access_token';
   static const _refreshTokenKey = 'refresh_token';
   static const _userJsonKey = 'user_json';
+  static const _localeKey = 'locale';
 
   // ---------------------------------------------------------------------------
   // Token operations
@@ -62,6 +63,18 @@ class SecureStorage {
 
   Future<void> clearUser() async {
     await _storage.delete(key: _userJsonKey);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Locale preference (language chosen by the user)
+  // ---------------------------------------------------------------------------
+
+  Future<void> saveLocale(String localeCode) async {
+    await _storage.write(key: _localeKey, value: localeCode);
+  }
+
+  Future<String?> getLocale() async {
+    return _storage.read(key: _localeKey);
   }
 
   // ---------------------------------------------------------------------------

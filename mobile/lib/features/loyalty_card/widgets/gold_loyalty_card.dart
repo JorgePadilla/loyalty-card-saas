@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../l10n/app_localizations.dart';
 import '../data/loyalty_card_model.dart';
 
 /// The premium loyalty card widget. This is the SOLE rich/indulgent element in
@@ -23,6 +24,7 @@ class GoldLoyaltyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final pointsFormatted = NumberFormat('#,###').format(card.currentPoints);
 
     return AspectRatio(
@@ -151,7 +153,7 @@ class GoldLoyaltyCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          'POINTS',
+                          l10n.loyaltyCardPointsLabel,
                           style: GoogleFonts.inter(
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
@@ -176,7 +178,7 @@ class GoldLoyaltyCard extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'MEMBER',
+                              l10n.loyaltyCardMemberLabel,
                               style: GoogleFonts.inter(
                                 fontSize: 9,
                                 fontWeight: FontWeight.w500,

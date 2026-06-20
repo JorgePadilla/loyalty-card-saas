@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/providers/auth_provider.dart';
+import '../../../core/widgets/language_selector.dart';
+import '../../../l10n/app_localizations.dart';
 import '../providers/staff_provider.dart';
 
 class StaffProfileScreen extends ConsumerStatefulWidget {
@@ -24,6 +26,7 @@ class _StaffProfileScreenState extends ConsumerState<StaffProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final auth = ref.watch(authProvider);
     final user = auth.user;
     final firstName = user?['first_name'] as String? ?? '';
@@ -52,7 +55,7 @@ class _StaffProfileScreenState extends ConsumerState<StaffProfileScreen> {
     return Scaffold(
       backgroundColor: AppColors.cream,
       appBar: AppBar(
-        title: Text('Profile', style: AppTypography.titleMedium),
+        title: Text(l10n.profileTitle, style: AppTypography.titleMedium),
         backgroundColor: AppColors.cream,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
@@ -100,7 +103,7 @@ class _StaffProfileScreenState extends ConsumerState<StaffProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        fullName.isNotEmpty ? fullName : 'Staff',
+                        fullName.isNotEmpty ? fullName : l10n.profileStaff,
                         style: AppTypography.titleSmall,
                       ),
                       const SizedBox(height: 2),
@@ -119,7 +122,7 @@ class _StaffProfileScreenState extends ConsumerState<StaffProfileScreen> {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
-                          _roleLabel(role),
+                          _roleLabel(l10n, role),
                           style: AppTypography.labelSmall.copyWith(
                             fontWeight: FontWeight.w600,
                             color: AppColors.matte,
@@ -138,7 +141,7 @@ class _StaffProfileScreenState extends ConsumerState<StaffProfileScreen> {
           // Today's stats
           // ---------------------------------------------------------------
           Text(
-            "Today's Activity",
+            l10n.profileTodaysActivity,
             style: AppTypography.labelMedium.copyWith(
               fontWeight: FontWeight.w600,
               letterSpacing: 0.5,
@@ -149,7 +152,7 @@ class _StaffProfileScreenState extends ConsumerState<StaffProfileScreen> {
             children: [
               Expanded(
                 child: _StatCard(
-                  label: 'Visits Today',
+                  label: l10n.profileVisitsToday,
                   value: todayVisitCount.toString(),
                   icon: Icons.people_outline,
                 ),
@@ -157,13 +160,19 @@ class _StaffProfileScreenState extends ConsumerState<StaffProfileScreen> {
               const SizedBox(width: 12),
               Expanded(
                 child: _StatCard(
-                  label: 'Points Awarded',
+                  label: l10n.profilePointsAwarded,
                   value: todayPointsAwarded.toString(),
                   icon: Icons.star_outline,
                 ),
               ),
             ],
           ),
+          const SizedBox(height: 24),
+
+          // ---------------------------------------------------------------
+          // Language section
+          // ---------------------------------------------------------------
+          const LanguageSelector(),
           const SizedBox(height: 40),
 
           // ---------------------------------------------------------------
@@ -180,7 +189,7 @@ class _StaffProfileScreenState extends ConsumerState<StaffProfileScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: Text('Sign Out', style: AppTypography.labelLarge),
+              child: Text(l10n.profileSignOut, style: AppTypography.labelLarge),
             ),
           ),
         ],
@@ -194,9 +203,17 @@ class _StaffProfileScreenState extends ConsumerState<StaffProfileScreen> {
     return '$f$l'.isNotEmpty ? '$f$l' : '?';
   }
 
-  String _roleLabel(String role) {
-    if (role.isEmpty) return 'Staff';
-    return role[0].toUpperCase() + role.substring(1);
+  String _roleLabel(AppLocalizations l10n, String role) {
+    switch (role) {
+      case 'owner':
+        return l10n.profileRoleOwner;
+      case 'manager':
+        return l10n.profileRoleManager;
+      case 'customer':
+        return l10n.profileRoleCustomer;
+      default:
+        return l10n.profileRoleStaff;
+    }
   }
 }
 

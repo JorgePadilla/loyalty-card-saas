@@ -12,6 +12,7 @@ import '../../features/staff/screens/staff_profile_screen.dart';
 import '../../features/staff/screens/visits_screen.dart';
 import '../providers/auth_provider.dart';
 import '../theme/app_colors.dart';
+import '../../l10n/app_localizations.dart';
 
 // =============================================================================
 // Navigation keys for StatefulShellRoute branches
@@ -180,6 +181,7 @@ class _CustomerShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: Container(
@@ -201,21 +203,21 @@ class _CustomerShell extends StatelessWidget {
           elevation: 0,
           height: 72,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-          destinations: const [
+          destinations: [
             NavigationDestination(
-              icon: Icon(Icons.credit_card_outlined),
-              selectedIcon: Icon(Icons.credit_card),
-              label: 'My Card',
+              icon: const Icon(Icons.credit_card_outlined),
+              selectedIcon: const Icon(Icons.credit_card),
+              label: l10n.navMyCard,
             ),
             NavigationDestination(
-              icon: Icon(Icons.card_giftcard_outlined),
-              selectedIcon: Icon(Icons.card_giftcard),
-              label: 'Rewards',
+              icon: const Icon(Icons.card_giftcard_outlined),
+              selectedIcon: const Icon(Icons.card_giftcard),
+              label: l10n.navRewards,
             ),
             NavigationDestination(
-              icon: Icon(Icons.person_outlined),
-              selectedIcon: Icon(Icons.person),
-              label: 'Profile',
+              icon: const Icon(Icons.person_outlined),
+              selectedIcon: const Icon(Icons.person),
+              label: l10n.navProfile,
             ),
           ],
         ),
@@ -235,6 +237,7 @@ class _StaffShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: Container(
@@ -256,21 +259,21 @@ class _StaffShell extends StatelessWidget {
           elevation: 0,
           height: 72,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-          destinations: const [
+          destinations: [
             NavigationDestination(
-              icon: Icon(Icons.qr_code_scanner_outlined),
-              selectedIcon: Icon(Icons.qr_code_scanner),
-              label: 'Scanner',
+              icon: const Icon(Icons.qr_code_scanner_outlined),
+              selectedIcon: const Icon(Icons.qr_code_scanner),
+              label: l10n.navScanner,
             ),
             NavigationDestination(
-              icon: Icon(Icons.history_outlined),
-              selectedIcon: Icon(Icons.history),
-              label: 'Visits',
+              icon: const Icon(Icons.history_outlined),
+              selectedIcon: const Icon(Icons.history),
+              label: l10n.navVisits,
             ),
             NavigationDestination(
-              icon: Icon(Icons.person_outlined),
-              selectedIcon: Icon(Icons.person),
-              label: 'Profile',
+              icon: const Icon(Icons.person_outlined),
+              selectedIcon: const Icon(Icons.person),
+              label: l10n.navProfile,
             ),
           ],
         ),

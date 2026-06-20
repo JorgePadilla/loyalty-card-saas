@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/providers/auth_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../l10n/app_localizations.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
@@ -72,7 +73,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           );
     } catch (e) {
       setState(() {
-        _errorMessage = 'Registration failed. Please try again.';
+        _errorMessage = AppLocalizations.of(context).registerFailed;
       });
     } finally {
       if (mounted) {
@@ -83,6 +84,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: AppColors.cream,
       body: SafeArea(
@@ -95,10 +97,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   // -------------------- Title --------------------
-                  Text('Create Account', style: AppTypography.headlineMedium),
+                  Text(l10n.registerTitle, style: AppTypography.headlineMedium),
                   const SizedBox(height: 8),
                   Text(
-                    'Join your favourite business',
+                    l10n.registerSubtitle,
                     style: AppTypography.bodyMedium
                         .copyWith(color: AppColors.secondary),
                   ),
@@ -131,14 +133,14 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     textInputAction: TextInputAction.next,
                     autocorrect: false,
                     style: AppTypography.bodyMedium,
-                    decoration: const InputDecoration(
-                      labelText: 'Business code',
-                      hintText: 'e.g. joes-barbershop',
-                      prefixIcon: Icon(Icons.store_outlined),
+                    decoration: InputDecoration(
+                      labelText: l10n.registerBusinessCodeLabel,
+                      hintText: l10n.registerBusinessCodeHint,
+                      prefixIcon: const Icon(Icons.store_outlined),
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Business code is required';
+                        return l10n.registerBusinessCodeRequired;
                       }
                       return null;
                     },
@@ -154,12 +156,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           textInputAction: TextInputAction.next,
                           textCapitalization: TextCapitalization.words,
                           style: AppTypography.bodyMedium,
-                          decoration: const InputDecoration(
-                            labelText: 'First name',
+                          decoration: InputDecoration(
+                            labelText: l10n.registerFirstNameLabel,
                           ),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
-                              return 'Required';
+                              return l10n.registerFieldRequired;
                             }
                             return null;
                           },
@@ -172,8 +174,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           textInputAction: TextInputAction.next,
                           textCapitalization: TextCapitalization.words,
                           style: AppTypography.bodyMedium,
-                          decoration: const InputDecoration(
-                            labelText: 'Last name',
+                          decoration: InputDecoration(
+                            labelText: l10n.registerLastNameLabel,
                           ),
                         ),
                       ),
@@ -188,16 +190,16 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     textInputAction: TextInputAction.next,
                     autocorrect: false,
                     style: AppTypography.bodyMedium,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      prefixIcon: Icon(Icons.email_outlined),
+                    decoration: InputDecoration(
+                      labelText: l10n.registerEmailLabel,
+                      prefixIcon: const Icon(Icons.email_outlined),
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Email is required';
+                        return l10n.registerEmailRequired;
                       }
                       if (!value.contains('@')) {
-                        return 'Enter a valid email';
+                        return l10n.registerEmailInvalid;
                       }
                       return null;
                     },
@@ -210,9 +212,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
                     style: AppTypography.bodyMedium,
-                    decoration: const InputDecoration(
-                      labelText: 'Phone (optional)',
-                      prefixIcon: Icon(Icons.phone_outlined),
+                    decoration: InputDecoration(
+                      labelText: l10n.registerPhoneLabel,
+                      prefixIcon: const Icon(Icons.phone_outlined),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -225,7 +227,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     onFieldSubmitted: (_) => _handleSignUp(),
                     style: AppTypography.bodyMedium,
                     decoration: InputDecoration(
-                      labelText: 'Password',
+                      labelText: l10n.registerPasswordLabel,
                       prefixIcon: const Icon(Icons.lock_outlined),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -243,10 +245,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Password is required';
+                        return l10n.registerPasswordRequired;
                       }
                       if (value.length < 6) {
-                        return 'At least 6 characters';
+                        return l10n.registerPasswordTooShort;
                       }
                       return null;
                     },
@@ -268,7 +270,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                                 color: AppColors.cream,
                               ),
                             )
-                          : const Text('Create account'),
+                          : Text(l10n.registerCreateAccountButton),
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -278,12 +280,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     onTap: () => context.go('/login'),
                     child: Text.rich(
                       TextSpan(
-                        text: 'Already have an account? ',
+                        text: l10n.registerHasAccountPrefix,
                         style: AppTypography.bodyMedium
                             .copyWith(color: AppColors.secondary),
                         children: [
                           TextSpan(
-                            text: 'Sign in',
+                            text: l10n.registerSignInLink,
                             style: AppTypography.labelLarge,
                           ),
                         ],

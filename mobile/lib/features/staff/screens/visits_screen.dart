@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../l10n/app_localizations.dart';
 import '../data/visit_model.dart';
 import '../providers/staff_provider.dart';
 
@@ -29,12 +30,13 @@ class _VisitsScreenState extends ConsumerState<VisitsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final state = ref.watch(visitsProvider);
 
     return Scaffold(
       backgroundColor: AppColors.cream,
       appBar: AppBar(
-        title: Text('Recent Visits', style: AppTypography.titleMedium),
+        title: Text(l10n.visitsTitle, style: AppTypography.titleMedium),
         backgroundColor: AppColors.cream,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
@@ -56,7 +58,8 @@ class _VisitsScreenState extends ConsumerState<VisitsScreen> {
   // Visit list grouped by date
   // -----------------------------------------------------------------------
   Widget _buildList(List<VisitModel> visits) {
-    final grouped = _groupByDate(visits);
+    final l10n = AppLocalizations.of(context);
+    final grouped = _groupByDate(visits, l10n);
     final dateKeys = grouped.keys.toList();
 
     return RefreshIndicator(
@@ -95,6 +98,7 @@ class _VisitsScreenState extends ConsumerState<VisitsScreen> {
   // Empty state
   // -----------------------------------------------------------------------
   Widget _buildEmpty() {
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(40),
@@ -115,10 +119,10 @@ class _VisitsScreenState extends ConsumerState<VisitsScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            Text('No visits yet', style: AppTypography.titleSmall),
+            Text(l10n.visitsEmptyTitle, style: AppTypography.titleSmall),
             const SizedBox(height: 8),
             Text(
-              'Check-in visits will appear here.\nScan a customer QR code to get started.',
+              l10n.visitsEmptyMessage,
               textAlign: TextAlign.center,
               style: AppTypography.bodySmall,
             ),
@@ -155,7 +159,7 @@ class _VisitsScreenState extends ConsumerState<VisitsScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text('Retry'),
+              child: Text(AppLocalizations.of(context).commonRetry),
             ),
           ],
         ),
@@ -166,7 +170,8 @@ class _VisitsScreenState extends ConsumerState<VisitsScreen> {
   // -----------------------------------------------------------------------
   // Group visits by display date
   // -----------------------------------------------------------------------
-  Map<String, List<VisitModel>> _groupByDate(List<VisitModel> visits) {
+  Map<String, List<VisitModel>> _groupByDate(
+      List<VisitModel> visits, AppLocalizations l10n) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
@@ -182,9 +187,9 @@ class _VisitsScreenState extends ConsumerState<VisitsScreen> {
 
       String label;
       if (visitDate == today) {
-        label = 'Today';
+        label = l10n.visitsToday;
       } else if (visitDate == yesterday) {
-        label = 'Yesterday';
+        label = l10n.visitsYesterday;
       } else {
         label = DateFormat('MMMM d, yyyy').format(visit.checkedInAt);
       }
@@ -207,6 +212,7 @@ class _VisitCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final timeFormatted = DateFormat('h:mm a').format(visit.checkedInAt);
 
     return Container(
@@ -230,7 +236,7 @@ class _VisitCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  visit.userName ?? 'Customer',
+                  visit.userName ?? l10n.commonCustomer,
                   style: AppTypography.bodySmall,
                 ),
                 const SizedBox(height: 2),
@@ -262,7 +268,7 @@ class _VisitCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
-                  '+${visit.pointsEarned} pts',
+                  l10n.visitsPointsEarned(visit.pointsEarned),
                   style: GoogleFonts.spaceGrotesk(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,

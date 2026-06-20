@@ -1,0 +1,209 @@
+{
+  "@@locale": "en",
+  "appTitle": "Loyalty",
+  "@appTitle": {
+    "description": "Application name"
+  },
+  "language": "Language",
+  "languageEnglish": "English",
+  "languageSpanish": "Spanish",
+
+  "commonRetry": "Retry",
+  "commonCancel": "Cancel",
+  "commonConfirm": "Confirm",
+  "commonCustomer": "Customer",
+  "commonPoints": "points",
+  "commonPts": "pts",
+
+  "navMyCard": "My Card",
+  "navRewards": "Rewards",
+  "navProfile": "Profile",
+  "navScanner": "Scanner",
+  "navVisits": "Visits",
+
+  "loginSubtitle": "Sign in to your account",
+  "loginInvalidCredentials": "Invalid email or password.",
+  "loginEmailLabel": "Email",
+  "loginEmailRequired": "Email is required",
+  "loginEmailInvalid": "Enter a valid email",
+  "loginPasswordLabel": "Password",
+  "loginPasswordRequired": "Password is required",
+  "loginSignInButton": "Sign in",
+  "loginNoAccountPrefix": "Don't have an account? ",
+  "loginSignUpLink": "Sign up",
+
+  "registerTitle": "Create Account",
+  "registerSubtitle": "Join your favourite business",
+  "registerFailed": "Registration failed. Please try again.",
+  "registerBusinessCodeLabel": "Business code",
+  "registerBusinessCodeHint": "e.g. joes-barbershop",
+  "registerBusinessCodeRequired": "Business code is required",
+  "registerFirstNameLabel": "First name",
+  "registerLastNameLabel": "Last name",
+  "registerFieldRequired": "Required",
+  "registerEmailLabel": "Email",
+  "registerEmailRequired": "Email is required",
+  "registerEmailInvalid": "Enter a valid email",
+  "registerPhoneLabel": "Phone (optional)",
+  "registerPasswordLabel": "Password",
+  "registerPasswordRequired": "Password is required",
+  "registerPasswordTooShort": "At least 6 characters",
+  "registerCreateAccountButton": "Create account",
+  "registerHasAccountPrefix": "Already have an account? ",
+  "registerSignInLink": "Sign in",
+
+  "cardTitle": "My Card",
+  "cardLoadError": "Could not load your card.",
+  "cardBusinessName": "Loyalty Club",
+  "cardMemberName": "Member",
+  "cardRecentActivity": "Recent Activity",
+  "cardActivityLoadError": "Could not load recent activity.",
+  "cardNoActivity": "No activity yet. Visit us to start earning points!",
+  "cardStatTotalPoints": "Total Points",
+  "cardStatVisits": "Visits",
+  "cardStatMemberSince": "Member Since",
+  "cardTimeMinutesAgo": "{minutes}m ago",
+  "@cardTimeMinutesAgo": {
+    "placeholders": {
+      "minutes": {}
+    }
+  },
+  "cardTimeHoursAgo": "{hours}h ago",
+  "@cardTimeHoursAgo": {
+    "placeholders": {
+      "hours": {}
+    }
+  },
+  "cardTimeDaysAgo": "{days}d ago",
+  "@cardTimeDaysAgo": {
+    "placeholders": {
+      "days": {}
+    }
+  },
+
+  "loyaltyCardPointsLabel": "POINTS",
+  "loyaltyCardMemberLabel": "MEMBER",
+
+  "rewardsTitle": "Rewards",
+  "rewardsLoadError": "Could not load rewards.",
+  "rewardsEmpty": "No rewards available yet.",
+  "rewardLoadError": "Could not load reward.",
+  "rewardDetailTitle": "Reward Details",
+  "rewardPointsLabel": "points",
+  "rewardRequiresTier": "Requires {tier} tier",
+  "@rewardRequiresTier": {
+    "placeholders": {
+      "tier": {}
+    }
+  },
+  "rewardYourBalance": "Your balance",
+  "rewardBalancePts": "{points} pts",
+  "@rewardBalancePts": {
+    "placeholders": {
+      "points": {}
+    }
+  },
+  "rewardRedeemFor": "Redeem for {points} points",
+  "@rewardRedeemFor": {
+    "placeholders": {
+      "points": {}
+    }
+  },
+  "rewardNotEnoughPoints": "Not enough points",
+  "rewardNotEnoughPointsCount": "Not enough points ({current}/{required})",
+  "@rewardNotEnoughPointsCount": {
+    "placeholders": {
+      "current": {},
+      "required": {}
+    }
+  },
+  "rewardTierRequiredButton": "{tier} Tier Required",
+  "@rewardTierRequiredButton": {
+    "placeholders": {
+      "tier": {}
+    }
+  },
+  "rewardNeedMorePoints": "You need {points} more points",
+  "@rewardNeedMorePoints": {
+    "placeholders": {
+      "points": {}
+    }
+  },
+  "rewardRedeemedTitle": "Reward Redeemed!",
+  "rewardRedeemedSubtitle": "Show this to staff to claim your reward.",
+  "rewardTypeDiscount": "Discount",
+  "rewardTypeFreeItem": "Free Item",
+  "rewardTypeService": "Service",
+  "rewardTypeMerchandise": "Merchandise",
+  "rewardConfirmTitle": "Redeem Reward",
+  "rewardConfirmMessage": "Spend {points} points to redeem \"{name}\"?",
+  "@rewardConfirmMessage": {
+    "placeholders": {
+      "points": {},
+      "name": {}
+    }
+  },
+  "rewardRedeemSuccess": "Reward redeemed successfully!",
+  "rewardRedeemFailure": "Could not redeem reward. Please try again.",
+
+  "scannerLabel": "Scan customer QR code",
+  "scannerCheckInTitle": "Check In Customer",
+  "scannerServiceLabel": "Service",
+  "scannerAmountLabel": "Amount ($)",
+  "scannerCheckInButton": "Check In",
+  "scannerCheckInSuccessTitle": "Check-in Successful",
+  "scannerPointsAwarded": "+{points} pts",
+  "@scannerPointsAwarded": {
+    "placeholders": {
+      "points": {}
+    }
+  },
+  "scannerScanNextButton": "Scan Next",
+  "scannerCheckInFailedTitle": "Check-in Failed",
+  "scannerTryAgainButton": "Try Again",
+
+  "visitsTitle": "Recent Visits",
+  "visitsEmptyTitle": "No visits yet",
+  "visitsEmptyMessage": "Check-in visits will appear here.\nScan a customer QR code to get started.",
+  "visitsToday": "Today",
+  "visitsYesterday": "Yesterday",
+  "visitsPointsEarned": "+{points} pts",
+  "@visitsPointsEarned": {
+    "placeholders": {
+      "points": {}
+    }
+  },
+
+  "profileTitle": "Profile",
+  "profileMember": "Member",
+  "profileStaff": "Staff",
+  "profileRoleOwner": "Owner",
+  "profileRoleManager": "Manager",
+  "profileRoleStaff": "Staff",
+  "profileRoleCustomer": "Customer",
+  "profileSignOut": "Sign Out",
+  "profileSettings": "Settings",
+  "profileNotifications": "Notifications",
+  "profileHelpSupport": "Help & Support",
+  "profileAbout": "About",
+  "profilePointsHistory": "Points History",
+  "profileHistoryLoadError": "Could not load history.",
+  "profileNoTransactions": "No transactions yet",
+  "profileMemberSince": "Member since {date}",
+  "@profileMemberSince": {
+    "placeholders": {
+      "date": {}
+    }
+  },
+  "profilePtsToTier": "{points} pts to {tier}",
+  "@profilePtsToTier": {
+    "placeholders": {
+      "points": {},
+      "tier": {}
+    }
+  },
+  "profileHighestTier": "Highest tier reached",
+  "profileTodaysActivity": "Today's Activity",
+  "profileVisitsToday": "Visits Today",
+  "profilePointsAwarded": "Points Awarded"
+}

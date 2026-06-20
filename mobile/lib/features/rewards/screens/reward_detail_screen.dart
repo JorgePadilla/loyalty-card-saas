@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../loyalty_card/providers/loyalty_card_provider.dart';
 import '../data/reward_model.dart';
 import '../providers/rewards_provider.dart';
@@ -24,6 +25,7 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final rewardState = ref.watch(rewardDetailProvider(widget.rewardId));
     final cardState = ref.watch(loyaltyCardProvider);
     final redeemState = ref.watch(redeemProvider);
@@ -40,7 +42,7 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
           icon: const Icon(Icons.arrow_back_rounded, color: AppColors.matte),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text('Reward Details', style: AppTypography.titleMedium),
+        title: Text(l10n.rewardDetailTitle, style: AppTypography.titleMedium),
         centerTitle: true,
       ),
       body: rewardState.when(
@@ -54,7 +56,7 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
               const Icon(Icons.error_outline_rounded,
                   size: 48, color: AppColors.secondary),
               const SizedBox(height: 12),
-              Text('Could not load reward.', style: AppTypography.bodyMedium),
+              Text(l10n.rewardLoadError, style: AppTypography.bodyMedium),
             ],
           ),
         ),
@@ -95,14 +97,14 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                'Reward Redeemed!',
+                                l10n.rewardRedeemedTitle,
                                 style: AppTypography.titleMedium.copyWith(
                                   color: AppColors.success,
                                 ),
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                'Show this to staff to claim your reward.',
+                                l10n.rewardRedeemedSubtitle,
                                 style: AppTypography.bodySmall.copyWith(
                                   color: AppColors.success,
                                 ),
@@ -137,7 +139,7 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
-                                _rewardTypeLabel(reward.rewardType),
+                                _rewardTypeLabel(l10n, reward.rewardType),
                                 style: AppTypography.labelSmall.copyWith(
                                   color: AppColors.matte,
                                   letterSpacing: 0.5,
@@ -169,7 +171,7 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  'points',
+                                  l10n.rewardPointsLabel,
                                   style: AppTypography.bodyLarge.copyWith(
                                     color: AppColors.secondary,
                                   ),
@@ -204,7 +206,7 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
                                     ),
                                     const SizedBox(width: 6),
                                     Text(
-                                      'Requires ${reward.tierRequiredLabel} tier',
+                                      l10n.rewardRequiresTier(reward.tierRequiredLabel),
                                       style: AppTypography.labelSmall.copyWith(
                                         color: isTierLocked
                                             ? AppColors.secondary
@@ -249,11 +251,11 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Your balance',
+                                l10n.rewardYourBalance,
                                 style: AppTypography.bodyMedium,
                               ),
                               Text(
-                                '$currentPoints pts',
+                                l10n.rewardBalancePts(currentPoints),
                                 style: GoogleFonts.spaceGrotesk(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
@@ -283,9 +285,11 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
                       height: 52,
                       child: Tooltip(
                         message: !canAfford
-                            ? 'You need ${reward.pointsCost - currentPoints} more points'
+                            ? l10n.rewardNeedMorePoints(
+                                reward.pointsCost - currentPoints)
                             : isTierLocked
-                                ? 'Requires ${reward.tierRequiredLabel} tier'
+                                ? l10n.rewardRequiresTier(
+                                    reward.tierRequiredLabel)
                                 : '',
                         child: ElevatedButton(
                           onPressed:
@@ -313,10 +317,11 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
                                 )
                               : Text(
                                   canAfford && !isTierLocked
-                                      ? 'Redeem for ${reward.pointsCost} points'
+                                      ? l10n.rewardRedeemFor(reward.pointsCost)
                                       : isTierLocked
-                                          ? '${reward.tierRequiredLabel} Tier Required'
-                                          : 'Not enough points',
+                                          ? l10n.rewardTierRequiredButton(
+                                              reward.tierRequiredLabel)
+                                          : l10n.rewardNotEnoughPoints,
                                   style: GoogleFonts.inter(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -342,50 +347,38 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
     return currentIdx < requiredIdx;
   }
 
-  String _rewardTypeLabel(String type) {
+  String _rewardTypeLabel(AppLocalizations l10n, String type) {
     switch (type) {
       case 'discount':
-        return 'Discount';
+        return l10n.rewardTypeDiscount;
       case 'free_item':
-        return 'Free Item';
+        return l10n.rewardTypeFreeItem;
       case 'service':
-        return 'Service';
+        return l10n.rewardTypeService;
       case 'merchandise':
-        return 'Merchandise';
+        return l10n.rewardTypeMerchandise;
       default:
         return type[0].toUpperCase() + type.substring(1);
     }
   }
 
   void _confirmRedeem(BuildContext context, RewardModel reward) {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Text('Redeem Reward', style: AppTypography.titleMedium),
-        content: RichText(
-          text: TextSpan(
-            style: AppTypography.bodyMedium,
-            children: [
-              const TextSpan(text: 'Spend '),
-              TextSpan(
-                text: '${reward.pointsCost} points',
-                style: GoogleFonts.spaceGrotesk(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.matte,
-                ),
-              ),
-              TextSpan(text: ' to redeem "${reward.name}"?'),
-            ],
-          ),
+        title: Text(l10n.rewardConfirmTitle, style: AppTypography.titleMedium),
+        content: Text(
+          l10n.rewardConfirmMessage(reward.pointsCost, reward.name),
+          style: AppTypography.bodyMedium,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
             style: TextButton.styleFrom(foregroundColor: AppColors.secondary),
-            child: const Text('Cancel'),
+            child: Text(l10n.commonCancel),
           ),
           TextButton(
             onPressed: () async {
@@ -398,7 +391,7 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
                   setState(() => _redeemed = true);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: const Text('Reward redeemed successfully!'),
+                      content: Text(l10n.rewardRedeemSuccess),
                       backgroundColor: AppColors.success,
                       behavior: SnackBarBehavior.floating,
                       shape: RoundedRectangleBorder(
@@ -409,8 +402,7 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: const Text(
-                          'Could not redeem reward. Please try again.'),
+                      content: Text(l10n.rewardRedeemFailure),
                       backgroundColor: AppColors.error,
                       behavior: SnackBarBehavior.floating,
                       shape: RoundedRectangleBorder(
@@ -422,7 +414,7 @@ class _RewardDetailScreenState extends ConsumerState<RewardDetailScreen> {
               }
             },
             style: TextButton.styleFrom(foregroundColor: AppColors.matte),
-            child: const Text('Confirm'),
+            child: Text(l10n.commonConfirm),
           ),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../loyalty_card/providers/loyalty_card_provider.dart';
 import '../data/reward_model.dart';
 import '../providers/rewards_provider.dart';
@@ -15,6 +16,7 @@ class RewardsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final rewardsState = ref.watch(rewardsProvider);
     final cardState = ref.watch(loyaltyCardProvider);
 
@@ -28,7 +30,7 @@ class RewardsScreen extends ConsumerWidget {
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        title: Text('Rewards', style: AppTypography.headlineSmall),
+        title: Text(l10n.rewardsTitle, style: AppTypography.headlineSmall),
       ),
       body: RefreshIndicator(
         color: AppColors.matte,
@@ -42,7 +44,7 @@ class RewardsScreen extends ConsumerWidget {
             child: CircularProgressIndicator(color: AppColors.matte),
           ),
           error: (error, _) => _ErrorBody(
-            message: 'Could not load rewards.',
+            message: l10n.rewardsLoadError,
             onRetry: () => ref.read(rewardsProvider.notifier).fetch(),
           ),
           data: (rewards) {
@@ -200,7 +202,7 @@ class _RewardCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'pts',
+                  AppLocalizations.of(context).commonPts,
                   style: AppTypography.labelSmall.copyWith(fontSize: 10),
                 ),
               ],
@@ -258,6 +260,7 @@ class RewardDetailScreenInline extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final rewardState = ref.watch(rewardDetailProvider(rewardId));
     final cardState = ref.watch(loyaltyCardProvider);
     final redeemState = ref.watch(redeemProvider);
@@ -278,7 +281,7 @@ class RewardDetailScreenInline extends ConsumerWidget {
         loading: () => const Center(
           child: CircularProgressIndicator(color: AppColors.matte),
         ),
-        error: (_, __) => const Center(child: Text('Could not load reward.')),
+        error: (_, __) => Center(child: Text(l10n.rewardLoadError)),
         data: (reward) {
           final canAfford = currentPoints >= reward.pointsCost;
           final isRedeeming = redeemState is AsyncLoading;
@@ -313,13 +316,13 @@ class RewardDetailScreenInline extends ConsumerWidget {
                             ),
                           ),
                           const SizedBox(width: 6),
-                          Text('points', style: AppTypography.bodyMedium),
+                          Text(l10n.rewardPointsLabel, style: AppTypography.bodyMedium),
                         ],
                       ),
                       if (reward.hasTierRequirement) ...[
                         const SizedBox(height: 8),
                         Text(
-                          'Requires ${reward.tierRequiredLabel} tier',
+                          l10n.rewardRequiresTier(reward.tierRequiredLabel),
                           style: AppTypography.bodySmall,
                         ),
                       ],
@@ -360,8 +363,9 @@ class RewardDetailScreenInline extends ConsumerWidget {
                           )
                         : Text(
                             canAfford
-                                ? 'Redeem for ${reward.pointsCost} points'
-                                : 'Not enough points (${currentPoints}/${reward.pointsCost})',
+                                ? l10n.rewardRedeemFor(reward.pointsCost)
+                                : l10n.rewardNotEnoughPointsCount(
+                                    currentPoints, reward.pointsCost),
                             style: GoogleFonts.inter(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
@@ -384,21 +388,22 @@ class RewardDetailScreenInline extends ConsumerWidget {
     WidgetRef ref,
     RewardModel reward,
   ) {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppColors.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: Text('Redeem Reward', style: AppTypography.titleMedium),
+        title: Text(l10n.rewardConfirmTitle, style: AppTypography.titleMedium),
         content: Text(
-          'Spend ${reward.pointsCost} points to redeem "${reward.name}"?',
+          l10n.rewardConfirmMessage(reward.pointsCost, reward.name),
           style: AppTypography.bodyMedium,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
             style: TextButton.styleFrom(foregroundColor: AppColors.secondary),
-            child: const Text('Cancel'),
+            child: Text(l10n.commonCancel),
           ),
           TextButton(
             onPressed: () async {
@@ -410,8 +415,8 @@ class RewardDetailScreenInline extends ConsumerWidget {
                   SnackBar(
                     content: Text(
                       success
-                          ? 'Reward redeemed successfully!'
-                          : 'Could not redeem reward. Please try again.',
+                          ? l10n.rewardRedeemSuccess
+                          : l10n.rewardRedeemFailure,
                     ),
                     backgroundColor: success ? AppColors.success : AppColors.error,
                     behavior: SnackBarBehavior.floating,
@@ -426,7 +431,7 @@ class RewardDetailScreenInline extends ConsumerWidget {
               }
             },
             style: TextButton.styleFrom(foregroundColor: AppColors.matte),
-            child: const Text('Confirm'),
+            child: Text(l10n.commonConfirm),
           ),
         ],
       ),
@@ -454,7 +459,7 @@ class _EmptyRewards extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'No rewards available yet.',
+              AppLocalizations.of(context).rewardsEmpty,
               style: AppTypography.bodyMedium.copyWith(
                 color: AppColors.secondary,
               ),
@@ -486,7 +491,7 @@ class _ErrorBody extends StatelessWidget {
           TextButton(
             onPressed: onRetry,
             style: TextButton.styleFrom(foregroundColor: AppColors.matte),
-            child: const Text('Retry'),
+            child: Text(AppLocalizations.of(context).commonRetry),
           ),
         ],
       ),

@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/providers/auth_provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../l10n/app_localizations.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -56,7 +57,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           );
     } catch (e) {
       setState(() {
-        _errorMessage = 'Invalid email or password.';
+        _errorMessage = AppLocalizations.of(context).loginInvalidCredentials;
       });
     } finally {
       if (mounted) {
@@ -67,6 +68,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: AppColors.cream,
       body: SafeArea(
@@ -90,7 +92,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   Text('Loyalty', style: AppTypography.headlineLarge),
                   const SizedBox(height: 8),
                   Text(
-                    'Sign in to your account',
+                    l10n.loginSubtitle,
                     style: AppTypography.bodyMedium
                         .copyWith(color: AppColors.secondary),
                   ),
@@ -124,16 +126,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     textInputAction: TextInputAction.next,
                     autocorrect: false,
                     style: AppTypography.bodyMedium,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      prefixIcon: Icon(Icons.email_outlined),
+                    decoration: InputDecoration(
+                      labelText: l10n.loginEmailLabel,
+                      prefixIcon: const Icon(Icons.email_outlined),
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Email is required';
+                        return l10n.loginEmailRequired;
                       }
                       if (!value.contains('@')) {
-                        return 'Enter a valid email';
+                        return l10n.loginEmailInvalid;
                       }
                       return null;
                     },
@@ -148,7 +150,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     onFieldSubmitted: (_) => _handleSignIn(),
                     style: AppTypography.bodyMedium,
                     decoration: InputDecoration(
-                      labelText: 'Password',
+                      labelText: l10n.loginPasswordLabel,
                       prefixIcon: const Icon(Icons.lock_outlined),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -166,7 +168,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Password is required';
+                        return l10n.loginPasswordRequired;
                       }
                       return null;
                     },
@@ -188,7 +190,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 color: AppColors.cream,
                               ),
                             )
-                          : const Text('Sign in'),
+                          : Text(l10n.loginSignInButton),
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -198,12 +200,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     onTap: () => context.go('/register'),
                     child: Text.rich(
                       TextSpan(
-                        text: "Don't have an account? ",
+                        text: l10n.loginNoAccountPrefix,
                         style: AppTypography.bodyMedium
                             .copyWith(color: AppColors.secondary),
                         children: [
                           TextSpan(
-                            text: 'Sign up',
+                            text: l10n.loginSignUpLink,
                             style: AppTypography.labelLarge,
                           ),
                         ],

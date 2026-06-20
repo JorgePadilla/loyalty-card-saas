@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../l10n/app_localizations.dart';
 import '../data/loyalty_card_model.dart';
 import '../data/point_transaction_model.dart';
 import '../providers/loyalty_card_provider.dart';
@@ -18,6 +19,7 @@ class CardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final cardState = ref.watch(loyaltyCardProvider);
     final transactionsState = ref.watch(recentTransactionsProvider);
 
@@ -28,7 +30,7 @@ class CardScreen extends ConsumerWidget {
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        title: Text('My Card', style: AppTypography.headlineSmall),
+        title: Text(l10n.cardTitle, style: AppTypography.headlineSmall),
       ),
       body: RefreshIndicator(
         color: AppColors.matte,
@@ -42,7 +44,7 @@ class CardScreen extends ConsumerWidget {
             child: CircularProgressIndicator(color: AppColors.matte),
           ),
           error: (error, _) => _ErrorBody(
-            message: 'Could not load your card.',
+            message: l10n.cardLoadError,
             onRetry: () => ref.read(loyaltyCardProvider.notifier).fetch(),
           ),
           data: (card) => _CardContent(
@@ -70,6 +72,7 @@ class _CardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return ListView(
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -77,8 +80,8 @@ class _CardContent extends StatelessWidget {
         // --- Hero loyalty card with entrance animation ---
         GoldLoyaltyCard(
           card: card,
-          businessName: 'Loyalty Club', // Will be replaced with tenant name
-          memberName: 'Member',         // Will be replaced with user name
+          businessName: l10n.cardBusinessName, // Will be replaced with tenant name
+          memberName: l10n.cardMemberName,     // Will be replaced with user name
         )
             .animate()
             .slideY(
@@ -99,7 +102,7 @@ class _CardContent extends StatelessWidget {
         const SizedBox(height: 28),
 
         // --- Recent Activity ---
-        Text('Recent Activity', style: AppTypography.titleMedium)
+        Text(l10n.cardRecentActivity, style: AppTypography.titleMedium)
             .animate()
             .fadeIn(delay: 300.ms, duration: 400.ms),
 
@@ -113,12 +116,12 @@ class _CardContent extends StatelessWidget {
             ),
           ),
           error: (_, __) => _EmptyActivity(
-            message: 'Could not load recent activity.',
+            message: l10n.cardActivityLoadError,
           ),
           data: (transactions) {
             if (transactions.isEmpty) {
-              return const _EmptyActivity(
-                message: 'No activity yet. Visit us to start earning points!',
+              return _EmptyActivity(
+                message: l10n.cardNoActivity,
               );
             }
             // Show at most 5 recent transactions
@@ -156,6 +159,7 @@ class _StatsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final pointsFormatted = NumberFormat('#,###').format(card.totalPoints);
     final memberSince = card.lastVisitAt != null
         ? DateFormat('MMM yyyy').format(card.lastVisitAt!)
@@ -172,7 +176,7 @@ class _StatsRow extends StatelessWidget {
         children: [
           Expanded(
             child: _StatItem(
-              label: 'Total Points',
+              label: l10n.cardStatTotalPoints,
               value: pointsFormatted,
             ),
           ),
@@ -183,7 +187,7 @@ class _StatsRow extends StatelessWidget {
           ),
           Expanded(
             child: _StatItem(
-              label: 'Visits',
+              label: l10n.cardStatVisits,
               value: card.visitsCount.toString(),
             ),
           ),
@@ -194,7 +198,7 @@ class _StatsRow extends StatelessWidget {
           ),
           Expanded(
             child: _StatItem(
-              label: 'Member Since',
+              label: l10n.cardStatMemberSince,
               value: memberSince,
               useMono: false,
             ),
@@ -297,7 +301,7 @@ class _TransactionTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  '${transaction.kindLabel}  ·  ${_formatDate(transaction.createdAt)}',
+                  '${transaction.kindLabel}  ·  ${_formatDate(context, transaction.createdAt)}',
                   style: AppTypography.bodySmall,
                 ),
               ],
@@ -320,16 +324,17 @@ class _TransactionTile extends StatelessWidget {
     );
   }
 
-  String _formatDate(DateTime dt) {
+  String _formatDate(BuildContext context, DateTime dt) {
+    final l10n = AppLocalizations.of(context);
     final now = DateTime.now();
     final diff = now.difference(dt);
 
     if (diff.inMinutes < 60) {
-      return '${diff.inMinutes}m ago';
+      return l10n.cardTimeMinutesAgo(diff.inMinutes);
     } else if (diff.inHours < 24) {
-      return '${diff.inHours}h ago';
+      return l10n.cardTimeHoursAgo(diff.inHours);
     } else if (diff.inDays < 7) {
-      return '${diff.inDays}d ago';
+      return l10n.cardTimeDaysAgo(diff.inDays);
     }
     return DateFormat('MMM d').format(dt);
   }
@@ -383,7 +388,7 @@ class _ErrorBody extends StatelessWidget {
           TextButton(
             onPressed: onRetry,
             style: TextButton.styleFrom(foregroundColor: AppColors.matte),
-            child: const Text('Retry'),
+            child: Text(AppLocalizations.of(context).commonRetry),
           ),
         ],
       ),
