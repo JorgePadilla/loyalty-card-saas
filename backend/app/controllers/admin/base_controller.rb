@@ -1,6 +1,8 @@
 class Admin::BaseController < ApplicationController
   include Pundit::Authorization
 
+  layout "admin"
+
   before_action :require_staff_role
   before_action :set_tenant
 
