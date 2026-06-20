@@ -27,7 +27,11 @@
 <div class="grid grid-cols-4 gap-4 mb-4">
   <div class="col-span-3 bg-surface border border-border rounded-xl p-6">
     <h3 class="text-matte text-sm font-semibold mb-4"><%= t("admin.dashboard.visits_chart_title") %></h3>
-    <%= line_chart @visits_chart_data, colors: ["#1A1A1A"], library: { plugins: { legend: { display: false } } } %>
+    <%= turbo_frame_tag :visits_chart, src: admin_dashboard_chart_path, loading: :lazy do %>
+      <div class="h-[200px] flex items-center justify-center">
+        <div class="w-6 h-6 border-2 border-border border-t-matte rounded-full animate-spin"></div>
+      </div>
+    <% end %>
   </div>
 
   <div class="bg-surface border border-border rounded-xl p-6">

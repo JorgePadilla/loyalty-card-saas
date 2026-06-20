@@ -1,0 +1,4 @@
+<%# Rendered into the lazy Turbo Frame on the dashboard (layout disabled). %>
+<%= turbo_frame_tag :visits_chart do %>
+  <%= line_chart @visits_chart_data, colors: ["#1A1A1A"], library: { plugins: { legend: { display: false } } } %>
+<% end %>

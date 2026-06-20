@@ -37,7 +37,12 @@ module LocaleSelection
   end
 
   # IP country → Spanish for Spanish-speaking countries. Cached + fails to nil.
+  # Only for anonymous visitors (marketing first-visit default); signed-in users
+  # resolve via their saved locale/cookie, so we never make the external call on
+  # authenticated pages like the admin dashboard.
   def geo_locale
+    return if current_user
+
     country = Geo::CountryLookup.country_for(request.remote_ip)
     :es if country && Geo::SPANISH_SPEAKING_COUNTRIES.include?(country)
   end

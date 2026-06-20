@@ -8,6 +8,12 @@ class Admin::DashboardController < Admin::BaseController
     @top_customers = LoyaltyCard.order(total_points: :desc).includes(:user).limit(5)
     @active_campaigns = Campaign.active_now
     @rewards = Reward.active.order(:points_cost)
+  end
+
+  # Lazy-loaded via a Turbo Frame so the heaviest aggregation doesn't block
+  # the dashboard's first paint.
+  def chart
     @visits_chart_data = Visit.where(checked_in_at: 30.days.ago..Time.current).group_by_day(:checked_in_at).count
+    render layout: false
   end
 end

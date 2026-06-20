@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_20_155301) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_20_172711) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -44,6 +44,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_20_155301) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["qr_code"], name: "index_loyalty_cards_on_qr_code", unique: true
+    t.index ["tenant_id", "total_points"], name: "index_loyalty_cards_on_tenant_and_total_points"
     t.index ["tenant_id", "user_id"], name: "index_loyalty_cards_on_tenant_id_and_user_id", unique: true
     t.index ["tenant_id"], name: "index_loyalty_cards_on_tenant_id"
     t.index ["user_id"], name: "index_loyalty_cards_on_user_id"
@@ -61,6 +62,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_20_155301) do
     t.datetime "updated_at", null: false
     t.index ["loyalty_card_id"], name: "index_point_transactions_on_loyalty_card_id"
     t.index ["staff_id"], name: "index_point_transactions_on_staff_id"
+    t.index ["tenant_id", "created_at"], name: "index_point_transactions_on_tenant_and_created_at"
     t.index ["tenant_id", "kind"], name: "index_point_transactions_on_tenant_id_and_kind"
     t.index ["tenant_id", "loyalty_card_id"], name: "index_point_transactions_on_tenant_id_and_loyalty_card_id"
     t.index ["tenant_id"], name: "index_point_transactions_on_tenant_id"
