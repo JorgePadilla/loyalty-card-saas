@@ -41,7 +41,7 @@ class RegistrationsController < ApplicationController
 
     if @user&.persisted?
       start_new_session_for @user
-      redirect_to admin_root_path, notice: "Welcome! Your business is set up."
+      redirect_to admin_root_path, notice: t("auth.flash.registration_welcome")
     else
       @user ||= User.new
       flash.now[:alert] = @user.errors.full_messages.join(", ")

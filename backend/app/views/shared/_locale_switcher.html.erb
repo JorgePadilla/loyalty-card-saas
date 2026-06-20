@@ -1,0 +1,17 @@
+<%# EN | ES toggle. Pass `dark: true` on dark backgrounds (admin sidebar). %>
+<% dark = local_assigns.fetch(:dark, false) %>
+<div class="flex items-center gap-1.5 text-xs font-medium">
+  <% I18n.available_locales.each_with_index do |loc, i| %>
+    <% active = (I18n.locale == loc) %>
+    <%= link_to loc.to_s.upcase, set_locale_path(loc), data: { turbo: false },
+          class: ["transition-colors",
+            (if active
+               dark ? "text-white" : "text-matte"
+             else
+               dark ? "text-white/40 hover:text-white/70" : "text-secondary hover:text-matte"
+             end)].join(" ") %>
+    <% unless i == I18n.available_locales.size - 1 %>
+      <span class="<%= dark ? "text-white/20" : "text-border" %>">·</span>
+    <% end %>
+  <% end %>
+</div>

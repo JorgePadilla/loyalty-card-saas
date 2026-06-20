@@ -1,8 +1,8 @@
-<% content_for(:title, "Visits") %>
+<% content_for(:title, t("admin.visits.index.title")) %>
 
 <div class="mb-6">
-  <h1 class="text-2xl font-semibold text-matte">Visits</h1>
-  <p class="text-secondary text-sm mt-1">Recent customer check-ins</p>
+  <h1 class="text-2xl font-semibold text-matte"><%= t("admin.visits.index.title") %></h1>
+  <p class="text-secondary text-sm mt-1"><%= t("admin.visits.index.subtitle") %></p>
 </div>
 
 <div class="bg-surface border border-border rounded-xl overflow-hidden">
@@ -10,11 +10,11 @@
     <table class="w-full">
       <thead>
         <tr class="border-b border-border">
-          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Customer</th>
-          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Service</th>
-          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Staff</th>
-          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Points</th>
-          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Date</th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.visits.index.col_customer") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.visits.index.col_service") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.visits.index.col_staff") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.visits.index.col_points") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.visits.index.col_date") %></th>
         </tr>
       </thead>
       <tbody>
@@ -32,6 +32,6 @@
       </tbody>
     </table>
   <% else %>
-    <%= render "shared/empty_state", message: "No visits yet" %>
+    <%= render "shared/empty_state", message: t("admin.visits.index.empty") %>
   <% end %>
 </div>

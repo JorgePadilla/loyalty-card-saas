@@ -1,0 +1,47 @@
+es:
+  enums:
+    user:
+      role:
+        customer: Cliente
+        staff: Personal
+        manager: Gerente
+        owner: Propietario
+    reward:
+      reward_type:
+        free_service: Servicio gratis
+        discount_percent: Descuento porcentual
+        discount_fixed: Descuento fijo
+        product: Producto
+      tier_required:
+        bronze: Bronce
+        silver: Plata
+        gold: Oro
+    loyalty_card:
+      tier:
+        bronze: Bronce
+        silver: Plata
+        gold: Oro
+    point_transaction:
+      kind:
+        earn: Ganados
+        redeem: Canjeados
+        bonus: Bono
+        referral: Referido
+        adjustment: Ajuste
+    redemption:
+      status:
+        pending: Pendiente
+        confirmed: Confirmado
+        expired: Expirado
+    subscription:
+      status:
+        trialing: Prueba
+        active: Activo
+        past_due: Vencido
+        canceled: Cancelado
+    tenant:
+      plan:
+        free: Gratis
+        starter: Starter
+        pro: Pro
+        enterprise: Enterprise

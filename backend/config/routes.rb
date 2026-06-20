@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get "pricing", to: "pages#pricing"
   get "features", to: "pages#features"
 
+  # Language switcher
+  get "locale/:locale", to: "locale#update", as: :set_locale, constraints: { locale: /en|es/ }
+
   # Admin dashboard (Hotwire)
   namespace :admin do
     root to: "dashboard#show"

@@ -7,35 +7,35 @@
     </div>
     <div>
       <h1 class="text-2xl font-semibold text-matte"><%= @user.full_name %></h1>
-      <p class="text-secondary text-sm"><%= @user.email_address %> · <%= @user.role.capitalize %></p>
+      <p class="text-secondary text-sm"><%= @user.email_address %> · <%= t_enum(:user, :role, @user.role) %></p>
     </div>
   </div>
   <div class="flex items-center gap-2">
-    <%= link_to "Edit", edit_admin_user_path(@user), class: "px-4 py-2 border border-border text-sm text-matte rounded-xl hover:bg-surface-variant transition-colors" %>
-    <%= link_to "Back", admin_users_path, class: "px-4 py-2 text-secondary text-sm hover:text-matte transition-colors" %>
+    <%= link_to t("admin.users.show.edit"), edit_admin_user_path(@user), class: "px-4 py-2 border border-border text-sm text-matte rounded-xl hover:bg-surface-variant transition-colors" %>
+    <%= link_to t("admin.users.show.back"), admin_users_path, class: "px-4 py-2 text-secondary text-sm hover:text-matte transition-colors" %>
   </div>
 </div>
 
 <div class="grid grid-cols-3 gap-4 mb-6">
   <% if @loyalty_card %>
-    <%= render "shared/stat_card", label: "Current Points", value: number_with_delimiter(@loyalty_card.current_points) %>
-    <%= render "shared/stat_card", label: "Total Points Earned", value: number_with_delimiter(@loyalty_card.total_points) %>
-    <%= render "shared/stat_card", label: "Visits", value: @loyalty_card.visits_count, subtitle: "Tier: #{@loyalty_card.tier.capitalize}" %>
+    <%= render "shared/stat_card", label: t("admin.users.show.current_points"), value: number_with_delimiter(@loyalty_card.current_points) %>
+    <%= render "shared/stat_card", label: t("admin.users.show.total_points_earned"), value: number_with_delimiter(@loyalty_card.total_points) %>
+    <%= render "shared/stat_card", label: t("admin.users.show.visits"), value: @loyalty_card.visits_count, subtitle: t("admin.users.show.tier_subtitle", tier: t_enum(:loyalty_card, :tier, @loyalty_card.tier)) %>
   <% end %>
 </div>
 
 <% if @user.customer? && @recent_visits&.any? %>
   <div class="bg-surface border border-border rounded-xl p-6">
-    <h3 class="text-matte text-sm font-semibold mb-4">Recent Visits</h3>
+    <h3 class="text-matte text-sm font-semibold mb-4"><%= t("admin.users.show.recent_visits") %></h3>
     <div class="space-y-3">
       <% @recent_visits.each do |visit| %>
         <div class="flex items-center justify-between py-2 border-b border-border last:border-0">
           <div>
             <p class="text-matte text-sm"><%= visit.service_name %></p>
-            <p class="text-secondary text-xs">Staff: <%= visit.staff.full_name %></p>
+            <p class="text-secondary text-xs"><%= t("admin.users.show.staff", name: visit.staff.full_name) %></p>
           </div>
           <div class="text-right">
-            <p class="text-matte text-sm font-mono">+<%= visit.points_earned %> pts</p>
+            <p class="text-matte text-sm font-mono">+<%= visit.points_earned %> <%= t("admin.common.points_abbr") %></p>
             <p class="text-secondary text-xs"><%= visit.checked_in_at.strftime("%b %d, %Y") %></p>
           </div>
         </div>

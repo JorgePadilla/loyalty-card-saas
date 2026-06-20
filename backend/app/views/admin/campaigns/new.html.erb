@@ -1,7 +1,7 @@
-<% content_for(:title, "New Campaign") %>
+<% content_for(:title, t("admin.campaigns.new.title")) %>
 <div class="mb-6">
-  <h1 class="text-2xl font-semibold text-matte">New Campaign</h1>
-  <p class="text-secondary text-sm mt-1">Create a point multiplier promotion</p>
+  <h1 class="text-2xl font-semibold text-matte"><%= t("admin.campaigns.new.title") %></h1>
+  <p class="text-secondary text-sm mt-1"><%= t("admin.campaigns.new.subtitle") %></p>
 </div>
 <div class="max-w-2xl bg-surface border border-border rounded-xl p-6">
   <%= render "form", campaign: @campaign %>

@@ -15,7 +15,7 @@ class Admin::CampaignsController < Admin::BaseController
   def create
     @campaign = Campaign.new(campaign_params)
     if @campaign.save
-      redirect_to admin_campaigns_path, notice: "Campaign created successfully."
+      redirect_to admin_campaigns_path, notice: t("admin.campaigns.flash.created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -26,7 +26,7 @@ class Admin::CampaignsController < Admin::BaseController
 
   def update
     if @campaign.update(campaign_params)
-      redirect_to admin_campaigns_path, notice: "Campaign updated successfully."
+      redirect_to admin_campaigns_path, notice: t("admin.campaigns.flash.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -34,7 +34,7 @@ class Admin::CampaignsController < Admin::BaseController
 
   def destroy
     @campaign.destroy
-    redirect_to admin_campaigns_path, notice: "Campaign deleted."
+    redirect_to admin_campaigns_path, notice: t("admin.campaigns.flash.deleted")
   end
 
   private

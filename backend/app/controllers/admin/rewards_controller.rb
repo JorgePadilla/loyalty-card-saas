@@ -15,7 +15,7 @@ class Admin::RewardsController < Admin::BaseController
   def create
     @reward = Reward.new(reward_params)
     if @reward.save
-      redirect_to admin_rewards_path, notice: "Reward created successfully."
+      redirect_to admin_rewards_path, notice: t("admin.rewards.flash.created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -26,7 +26,7 @@ class Admin::RewardsController < Admin::BaseController
 
   def update
     if @reward.update(reward_params)
-      redirect_to admin_rewards_path, notice: "Reward updated successfully."
+      redirect_to admin_rewards_path, notice: t("admin.rewards.flash.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -34,7 +34,7 @@ class Admin::RewardsController < Admin::BaseController
 
   def destroy
     @reward.destroy
-    redirect_to admin_rewards_path, notice: "Reward deleted."
+    redirect_to admin_rewards_path, notice: t("admin.rewards.flash.deleted")
   end
 
   private

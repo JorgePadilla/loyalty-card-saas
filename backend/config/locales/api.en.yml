@@ -1,0 +1,8 @@
+en:
+  api:
+    errors:
+      unauthorized: Unauthorized
+      forbidden: Forbidden
+      not_found: Not found
+      invalid_credentials: Invalid email or password
+      invalid_refresh_token: Invalid refresh token

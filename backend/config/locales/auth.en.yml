@@ -1,0 +1,48 @@
+en:
+  auth:
+    sessions:
+      title: "Sign in"
+      subtitle: "Welcome back to your dashboard"
+      email_label: "Email"
+      email_placeholder: "you@business.com"
+      password_label: "Password"
+      submit: "Sign in"
+      no_account: "Don't have an account?"
+      sign_up: "Sign up"
+    registrations:
+      title: "Create your account"
+      subtitle: "Set up your loyalty program in minutes"
+      business_name_label: "Business name"
+      business_name_placeholder: "Your Barbershop"
+      first_name_label: "First name"
+      last_name_label: "Last name"
+      email_label: "Email"
+      email_placeholder: "you@business.com"
+      password_label: "Password"
+      password_placeholder: "At least 8 characters"
+      submit: "Create account"
+      have_account: "Already have an account?"
+      sign_in: "Sign in"
+    passwords:
+      new:
+        title: "Forgot your password?"
+        email_placeholder: "Enter your email address"
+        submit: "Email reset instructions"
+      edit:
+        title: "Update your password"
+        password_placeholder: "Enter new password"
+        password_confirmation_placeholder: "Repeat new password"
+        submit: "Save"
+    mailer:
+      reset:
+        body_html: "You can reset your password within the next 15 minutes on"
+        link_text: "this password reset page"
+        body_text: "You can reset your password within the next 15 minutes on this password reset page:"
+    flash:
+      rate_limited: "Try again later."
+      invalid_credentials: "Try another email address or password."
+      registration_welcome: "Welcome! Your business is set up."
+      password_reset_sent: "Password reset instructions sent (if user with that email address exists)."
+      password_reset_success: "Password has been reset."
+      password_mismatch: "Passwords did not match."
+      password_reset_invalid: "Password reset link is invalid or has expired."

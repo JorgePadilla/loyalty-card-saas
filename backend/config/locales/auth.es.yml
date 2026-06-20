@@ -1,0 +1,48 @@
+es:
+  auth:
+    sessions:
+      title: "Iniciar sesión"
+      subtitle: "Bienvenido de nuevo a tu panel"
+      email_label: "Correo electrónico"
+      email_placeholder: "tu@negocio.com"
+      password_label: "Contraseña"
+      submit: "Iniciar sesión"
+      no_account: "¿No tienes una cuenta?"
+      sign_up: "Regístrate"
+    registrations:
+      title: "Crea tu cuenta"
+      subtitle: "Configura tu programa de lealtad en minutos"
+      business_name_label: "Nombre del negocio"
+      business_name_placeholder: "Tu barbería"
+      first_name_label: "Nombre"
+      last_name_label: "Apellido"
+      email_label: "Correo electrónico"
+      email_placeholder: "tu@negocio.com"
+      password_label: "Contraseña"
+      password_placeholder: "Al menos 8 caracteres"
+      submit: "Crear cuenta"
+      have_account: "¿Ya tienes una cuenta?"
+      sign_in: "Iniciar sesión"
+    passwords:
+      new:
+        title: "¿Olvidaste tu contraseña?"
+        email_placeholder: "Ingresa tu correo electrónico"
+        submit: "Enviar instrucciones de restablecimiento"
+      edit:
+        title: "Actualiza tu contraseña"
+        password_placeholder: "Ingresa la nueva contraseña"
+        password_confirmation_placeholder: "Repite la nueva contraseña"
+        submit: "Guardar"
+    mailer:
+      reset:
+        body_html: "Puedes restablecer tu contraseña en los próximos 15 minutos en"
+        link_text: "esta página de restablecimiento de contraseña"
+        body_text: "Puedes restablecer tu contraseña en los próximos 15 minutos en esta página de restablecimiento de contraseña:"
+    flash:
+      rate_limited: "Inténtalo de nuevo más tarde."
+      invalid_credentials: "Prueba con otro correo electrónico o contraseña."
+      registration_welcome: "¡Bienvenido! Tu negocio está configurado."
+      password_reset_sent: "Instrucciones de restablecimiento enviadas (si existe un usuario con ese correo electrónico)."
+      password_reset_success: "Tu contraseña ha sido restablecida."
+      password_mismatch: "Las contraseñas no coinciden."
+      password_reset_invalid: "El enlace de restablecimiento de contraseña no es válido o ha expirado."

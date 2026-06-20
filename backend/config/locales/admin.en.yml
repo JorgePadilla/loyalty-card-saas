@@ -1,0 +1,244 @@
+en:
+  admin:
+    common:
+      edit: "Edit"
+      back: "Back"
+      cancel: "Cancel"
+      delete: "Delete"
+      confirm: "Are you sure?"
+      active: "Active"
+      inactive: "Inactive"
+      any: "Any"
+      em_dash: "—"
+      points_abbr: "pts"
+      actions: "Actions"
+    dashboard:
+      title: "Dashboard"
+      subtitle: "Overview of your loyalty program"
+      stats:
+        total_customers: "Total Customers"
+        visits_today: "Visits Today"
+        points_this_week: "Points This Week"
+        pending_redemptions: "Pending Redemptions"
+      visits_chart_title: "Visits — Last 30 Days"
+      quick_actions:
+        title: "Quick Actions"
+        new_reward: "New Reward"
+        new_campaign: "New Campaign"
+        add_staff: "Add Staff"
+      recent_activity:
+        title: "Recent Activity"
+        empty: "No visits yet today"
+        time_ago: "%{time} ago"
+      top_customers:
+        title: "Top Customers"
+        visits: "%{count} visits"
+        empty: "No customers yet"
+      active_campaigns:
+        title: "Active Campaigns"
+        view_all: "View all"
+        ends: "Ends %{time}"
+        empty: "No active campaigns"
+      rewards:
+        title: "Rewards"
+        manage: "Manage"
+        empty: "No rewards configured"
+        create_action: "Create Reward"
+    users:
+      index:
+        title: "Users"
+        count: "%{count} total"
+        add_user: "Add User"
+        filter_all: "All"
+        empty: "No users found"
+        col_name: "Name"
+        col_email: "Email"
+        col_role: "Role"
+        col_points: "Points"
+        col_joined: "Joined"
+        col_actions: "Actions"
+      show:
+        edit: "Edit"
+        back: "Back"
+        current_points: "Current Points"
+        total_points_earned: "Total Points Earned"
+        visits: "Visits"
+        tier_subtitle: "Tier: %{tier}"
+        recent_visits: "Recent Visits"
+        staff: "Staff: %{name}"
+      new:
+        title: "Add User"
+        subtitle: "Create a new staff member or customer"
+      edit:
+        title: "Edit User"
+      form:
+        first_name: "First name"
+        last_name: "Last name"
+        email: "Email"
+        phone: "Phone"
+        role: "Role"
+        password: "Password"
+        new_password: "New Password (leave blank to keep)"
+        cancel: "Cancel"
+      flash:
+        created: "User created successfully."
+        updated: "User updated successfully."
+        deleted: "User deleted."
+    rewards:
+      index:
+        title: "Rewards"
+        subtitle: "Manage rewards your customers can redeem"
+        new_reward: "New Reward"
+        empty: "No rewards yet"
+        create_action: "Create your first reward"
+        col_name: "Name"
+        col_type: "Type"
+        col_points: "Points"
+        col_tier: "Tier"
+        col_status: "Status"
+        col_actions: "Actions"
+      show:
+        edit: "Edit"
+        back: "Back"
+        points_cost: "Points Cost"
+        description: "Description"
+        tier_required: "Tier Required"
+        status: "Status"
+        redemptions: "Redemptions"
+      new:
+        title: "New Reward"
+        subtitle: "Create a new reward for your customers"
+      edit:
+        title: "Edit Reward"
+      form:
+        name: "Name"
+        name_placeholder: "Free Haircut"
+        points_cost: "Points Cost"
+        points_cost_placeholder: "100"
+        description: "Description"
+        description_placeholder: "Describe this reward..."
+        type: "Type"
+        min_tier: "Min. Tier"
+        any_tier: "Any tier"
+        image_url: "Image URL"
+        image_url_placeholder: "https://..."
+        active_label: "Active — visible to customers"
+        cancel: "Cancel"
+      flash:
+        created: "Reward created successfully."
+        updated: "Reward updated successfully."
+        deleted: "Reward deleted."
+    campaigns:
+      index:
+        title: "Campaigns"
+        subtitle: "Point multiplier promotions"
+        new_campaign: "New Campaign"
+        empty: "No campaigns yet"
+        create_action: "Create your first campaign"
+        col_name: "Name"
+        col_multiplier: "Multiplier"
+        col_period: "Period"
+        col_status: "Status"
+        col_actions: "Actions"
+        active_now: "Active Now"
+        scheduled: "Scheduled"
+        inactive: "Inactive"
+      show:
+        active_now: "Active now"
+        edit: "Edit"
+        back: "Back"
+        multiplier: "Multiplier"
+        description: "Description"
+        period: "Period"
+      new:
+        title: "New Campaign"
+        subtitle: "Create a point multiplier promotion"
+      edit:
+        title: "Edit Campaign"
+      form:
+        name: "Name"
+        name_placeholder: "Weekend Double Points"
+        description: "Description"
+        multiplier: "Multiplier"
+        start_date: "Start Date"
+        end_date: "End Date"
+        active_label: "Active — campaign is live"
+        cancel: "Cancel"
+      flash:
+        created: "Campaign created successfully."
+        updated: "Campaign updated successfully."
+        deleted: "Campaign deleted."
+    visits:
+      index:
+        title: "Visits"
+        subtitle: "Recent customer check-ins"
+        empty: "No visits yet"
+        col_customer: "Customer"
+        col_service: "Service"
+        col_staff: "Staff"
+        col_points: "Points"
+        col_date: "Date"
+      show:
+        title: "Visit Details"
+        back: "Back to visits"
+        customer: "Customer"
+        service: "Service"
+        points_earned: "Points Earned"
+        staff: "Staff"
+        date: "Date"
+    subscriptions:
+      show:
+        title: "Subscription"
+        subtitle: "Manage your plan and billing"
+        checkout_success: "Your subscription has been updated. It may take a moment to reflect."
+        checkout_canceled: "Checkout was canceled. No changes were made."
+        current_plan: "Current Plan"
+        manage_billing: "Manage billing"
+        next_billing: "Next billing: %{date}"
+        past_due_warning: "Your payment failed. Please update your billing information to avoid service interruption."
+        available_plans: "Available Plans"
+        per_month: "/mo"
+        current_plan_label: "Current plan"
+        contact_downgrade: "Contact support to downgrade"
+        upgrade_to: "Upgrade to %{plan}"
+        plans:
+          free:
+            name: "Free"
+            features:
+              customers: "50 customers"
+              staff: "1 staff member"
+              rewards: "Basic rewards"
+              checkins: "QR check-ins"
+          starter:
+            name: "Starter"
+            features:
+              customers: "500 customers"
+              staff: "5 staff members"
+              campaigns: "Campaigns"
+              analytics: "Analytics dashboard"
+              tiers: "Customer tiers"
+          pro:
+            name: "Pro"
+            features:
+              customers: "Unlimited customers"
+              staff: "15 staff members"
+              analytics: "Advanced analytics"
+              branding: "Custom branding"
+              support: "Priority support"
+          enterprise:
+            name: "Enterprise"
+            features:
+              everything: "Unlimited everything"
+              staff: "Unlimited staff"
+              locations: "Multiple locations"
+              api: "API access"
+              support: "Dedicated support"
+      flash:
+        invalid_plan: "Invalid plan selected."
+        already_on_plan: "You are already on the %{plan} plan."
+        billing_error: "Billing error: %{message}"
+        no_active_billing: "No active billing to manage."
+    base:
+      flash:
+        no_admin_access: "You don't have access to the admin area."
+        not_authorized: "You are not authorized to perform this action."

@@ -1,0 +1,47 @@
+en:
+  enums:
+    user:
+      role:
+        customer: Customer
+        staff: Staff
+        manager: Manager
+        owner: Owner
+    reward:
+      reward_type:
+        free_service: Free service
+        discount_percent: Percentage discount
+        discount_fixed: Fixed discount
+        product: Product
+      tier_required:
+        bronze: Bronze
+        silver: Silver
+        gold: Gold
+    loyalty_card:
+      tier:
+        bronze: Bronze
+        silver: Silver
+        gold: Gold
+    point_transaction:
+      kind:
+        earn: Earned
+        redeem: Redeemed
+        bonus: Bonus
+        referral: Referral
+        adjustment: Adjustment
+    redemption:
+      status:
+        pending: Pending
+        confirmed: Confirmed
+        expired: Expired
+    subscription:
+      status:
+        trialing: Trial
+        active: Active
+        past_due: Past due
+        canceled: Canceled
+    tenant:
+      plan:
+        free: Free
+        starter: Starter
+        pro: Pro
+        enterprise: Enterprise

@@ -1,18 +1,18 @@
-<% content_for(:title, "Users") %>
+<% content_for(:title, t("admin.users.index.title")) %>
 
 <div class="flex items-center justify-between mb-6">
   <div>
-    <h1 class="text-2xl font-semibold text-matte">Users</h1>
-    <p class="text-secondary text-sm mt-1"><%= @users.count %> total</p>
+    <h1 class="text-2xl font-semibold text-matte"><%= t("admin.users.index.title") %></h1>
+    <p class="text-secondary text-sm mt-1"><%= t("admin.users.index.count", count: @users.count) %></p>
   </div>
-  <%= link_to "Add User", new_admin_user_path, class: "px-4 py-2.5 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors" %>
+  <%= link_to t("admin.users.index.add_user"), new_admin_user_path, class: "px-4 py-2.5 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors" %>
 </div>
 
 <!-- Role filter tabs -->
 <div class="flex gap-1 mb-6">
-  <%= link_to "All", admin_users_path, class: "px-3 py-1.5 text-sm rounded-lg #{@role_filter.blank? ? 'bg-matte text-white' : 'text-secondary hover:text-matte hover:bg-surface-variant'} transition-colors" %>
+  <%= link_to t("admin.users.index.filter_all"), admin_users_path, class: "px-3 py-1.5 text-sm rounded-lg #{@role_filter.blank? ? 'bg-matte text-white' : 'text-secondary hover:text-matte hover:bg-surface-variant'} transition-colors" %>
   <% %w[customer staff manager owner].each do |role| %>
-    <%= link_to role.capitalize, admin_users_path(role: role), class: "px-3 py-1.5 text-sm rounded-lg #{@role_filter == role ? 'bg-matte text-white' : 'text-secondary hover:text-matte hover:bg-surface-variant'} transition-colors" %>
+    <%= link_to t_enum(:user, :role, role), admin_users_path(role: role), class: "px-3 py-1.5 text-sm rounded-lg #{@role_filter == role ? 'bg-matte text-white' : 'text-secondary hover:text-matte hover:bg-surface-variant'} transition-colors" %>
   <% end %>
 </div>
 
@@ -21,12 +21,12 @@
     <table class="w-full">
       <thead>
         <tr class="border-b border-border">
-          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Name</th>
-          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Email</th>
-          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Role</th>
-          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Points</th>
-          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Joined</th>
-          <th class="text-right px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium">Actions</th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.users.index.col_name") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.users.index.col_email") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.users.index.col_role") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.users.index.col_points") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.users.index.col_joined") %></th>
+          <th class="text-right px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.users.index.col_actions") %></th>
         </tr>
       </thead>
       <tbody>
@@ -42,20 +42,20 @@
             </td>
             <td class="px-6 py-4 text-secondary text-sm"><%= user.email_address %></td>
             <td class="px-6 py-4">
-              <span class="px-2 py-0.5 bg-surface-variant text-matte text-xs rounded-full"><%= user.role.capitalize %></span>
+              <span class="px-2 py-0.5 bg-surface-variant text-matte text-xs rounded-full"><%= t_enum(:user, :role, user.role) %></span>
             </td>
             <td class="px-6 py-4 text-matte text-sm font-mono">
-              <%= user.loyalty_card&.current_points || "—" %>
+              <%= user.loyalty_card&.current_points || t("admin.common.em_dash") %>
             </td>
             <td class="px-6 py-4 text-secondary text-xs"><%= user.created_at.strftime("%b %d, %Y") %></td>
             <td class="px-6 py-4 text-right">
-              <%= link_to "Edit", edit_admin_user_path(user), class: "text-secondary text-sm hover:text-matte transition-colors" %>
+              <%= link_to t("admin.common.edit"), edit_admin_user_path(user), class: "text-secondary text-sm hover:text-matte transition-colors" %>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   <% else %>
-    <%= render "shared/empty_state", message: "No users found" %>
+    <%= render "shared/empty_state", message: t("admin.users.index.empty") %>
   <% end %>
 </div>

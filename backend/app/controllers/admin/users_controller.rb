@@ -33,7 +33,7 @@ class Admin::UsersController < Admin::BaseController
 
     if @user.save
       LoyaltyCard.create!(user: @user) if @user.customer?
-      redirect_to admin_users_path, notice: "User created successfully."
+      redirect_to admin_users_path, notice: t("admin.users.flash.created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -48,7 +48,7 @@ class Admin::UsersController < Admin::BaseController
     update_params = user_params
     update_params = update_params.except(:password) if update_params[:password].blank?
     if @user.update(update_params)
-      redirect_to admin_user_path(@user), notice: "User updated successfully."
+      redirect_to admin_user_path(@user), notice: t("admin.users.flash.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -56,7 +56,7 @@ class Admin::UsersController < Admin::BaseController
 
   def destroy
     @user.destroy
-    redirect_to admin_users_path, notice: "User deleted."
+    redirect_to admin_users_path, notice: t("admin.users.flash.deleted")
   end
 
   private

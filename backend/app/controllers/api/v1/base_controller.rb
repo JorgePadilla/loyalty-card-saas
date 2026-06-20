@@ -1,6 +1,7 @@
 class Api::V1::BaseController < ActionController::API
   include Pundit::Authorization
 
+  around_action :switch_api_locale
   before_action :authenticate_api_user!
   before_action :set_tenant
 
@@ -16,9 +17,9 @@ class Api::V1::BaseController < ActionController::API
     decoded = JwtService.decode(token)
     if decoded
       @current_api_user = User.find_by(id: decoded[:user_id])
-      render json: { error: "Unauthorized" }, status: :unauthorized unless @current_api_user
+      render json: { error: t("api.errors.unauthorized") }, status: :unauthorized unless @current_api_user
     else
-      render json: { error: "Unauthorized" }, status: :unauthorized
+      render json: { error: t("api.errors.unauthorized") }, status: :unauthorized
     end
   end
 
@@ -39,14 +40,25 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def forbidden
-    render json: { error: "Forbidden" }, status: :forbidden
+    render json: { error: t("api.errors.forbidden") }, status: :forbidden
   end
 
   def not_found
-    render json: { error: "Not found" }, status: :not_found
+    render json: { error: t("api.errors.not_found") }, status: :not_found
   end
 
   def unprocessable(exception)
     render json: { errors: exception.record.errors.full_messages }, status: :unprocessable_entity
+  end
+
+  # Locale for API responses, from the client's Accept-Language header
+  # (the mobile app sends its current language). Leak-safe via with_locale.
+  def switch_api_locale(&action)
+    I18n.with_locale(api_locale, &action)
+  end
+
+  def api_locale
+    code = request.headers["Accept-Language"].to_s.split(",").first.to_s.split("-").first.strip.downcase
+    I18n.available_locales.map(&:to_s).include?(code) ? code : I18n.default_locale
   end
 end

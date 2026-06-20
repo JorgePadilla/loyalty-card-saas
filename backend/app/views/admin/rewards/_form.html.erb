@@ -11,45 +11,45 @@
 
   <div class="grid grid-cols-2 gap-6">
     <div>
-      <%= f.label :name, class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
-      <%= f.text_field :name, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte placeholder:text-tertiary focus:outline-none focus:border-matte transition-colors", placeholder: "Free Haircut" %>
+      <%= f.label :name, t("admin.rewards.form.name"), class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+      <%= f.text_field :name, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte placeholder:text-tertiary focus:outline-none focus:border-matte transition-colors", placeholder: t("admin.rewards.form.name_placeholder") %>
     </div>
 
     <div>
-      <%= f.label :points_cost, "Points Cost", class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
-      <%= f.number_field :points_cost, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte font-mono placeholder:text-tertiary focus:outline-none focus:border-matte transition-colors", placeholder: "100" %>
+      <%= f.label :points_cost, t("admin.rewards.form.points_cost"), class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+      <%= f.number_field :points_cost, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte font-mono placeholder:text-tertiary focus:outline-none focus:border-matte transition-colors", placeholder: t("admin.rewards.form.points_cost_placeholder") %>
     </div>
   </div>
 
   <div>
-    <%= f.label :description, class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
-    <%= f.text_area :description, rows: 3, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte placeholder:text-tertiary focus:outline-none focus:border-matte transition-colors resize-none", placeholder: "Describe this reward..." %>
+    <%= f.label :description, t("admin.rewards.form.description"), class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+    <%= f.text_area :description, rows: 3, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte placeholder:text-tertiary focus:outline-none focus:border-matte transition-colors resize-none", placeholder: t("admin.rewards.form.description_placeholder") %>
   </div>
 
   <div class="grid grid-cols-3 gap-6">
     <div>
-      <%= f.label :reward_type, "Type", class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
-      <%= f.select :reward_type, Reward.reward_types.keys.map { |t| [t.humanize, t] }, {}, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors" %>
+      <%= f.label :reward_type, t("admin.rewards.form.type"), class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+      <%= f.select :reward_type, Reward.reward_types.keys.map { |t| [t_enum(:reward, :reward_type, t), t] }, {}, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors" %>
     </div>
 
     <div>
-      <%= f.label :tier_required, "Min. Tier", class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
-      <%= f.select :tier_required, [["Any tier", nil]] + Reward.tier_requireds.keys.map { |t| [t.capitalize, t] }, {}, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors" %>
+      <%= f.label :tier_required, t("admin.rewards.form.min_tier"), class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+      <%= f.select :tier_required, [[t("admin.rewards.form.any_tier"), nil]] + Reward.tier_requireds.keys.map { |t| [t_enum(:reward, :tier_required, t), t] }, {}, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte focus:outline-none focus:border-matte transition-colors" %>
     </div>
 
     <div>
-      <%= f.label :image_url, "Image URL", class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
-      <%= f.url_field :image_url, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte placeholder:text-tertiary focus:outline-none focus:border-matte transition-colors", placeholder: "https://..." %>
+      <%= f.label :image_url, t("admin.rewards.form.image_url"), class: "block text-xs text-secondary uppercase tracking-wider font-medium mb-1.5" %>
+      <%= f.url_field :image_url, class: "w-full px-4 py-2.5 bg-surface-variant border border-border rounded-xl text-sm text-matte placeholder:text-tertiary focus:outline-none focus:border-matte transition-colors", placeholder: t("admin.rewards.form.image_url_placeholder") %>
     </div>
   </div>
 
   <div class="flex items-center gap-3">
     <%= f.check_box :active, class: "rounded border-border text-matte focus:ring-matte" %>
-    <%= f.label :active, "Active — visible to customers", class: "text-sm text-matte" %>
+    <%= f.label :active, t("admin.rewards.form.active_label"), class: "text-sm text-matte" %>
   </div>
 
   <div class="flex items-center gap-3 pt-4 border-t border-border">
     <%= f.submit class: "px-6 py-2.5 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors cursor-pointer" %>
-    <%= link_to "Cancel", admin_rewards_path, class: "px-6 py-2.5 text-secondary text-sm hover:text-matte transition-colors" %>
+    <%= link_to t("admin.rewards.form.cancel"), admin_rewards_path, class: "px-6 py-2.5 text-secondary text-sm hover:text-matte transition-colors" %>
   </div>
 <% end %>

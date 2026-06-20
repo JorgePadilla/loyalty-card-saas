@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="<%= I18n.locale %>" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%= content_for?(:title) ? "#{yield(:title)} — " : "" %>Loyalty Card</title>
-  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "White-label loyalty program for your business. Reward your customers, grow your revenue." %>">
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : t("layouts.meta.description") %>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,10 +20,11 @@
     <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
       <a href="/" class="text-lg font-semibold tracking-tight">Loyalty Card</a>
       <div class="flex items-center gap-8">
-        <%= link_to "Features", features_path, class: "text-sm text-secondary hover:text-matte transition-colors" %>
-        <%= link_to "Pricing", pricing_path, class: "text-sm text-secondary hover:text-matte transition-colors" %>
-        <%= link_to "Sign in", new_session_path, class: "text-sm text-secondary hover:text-matte transition-colors" %>
-        <%= link_to "Get Started", new_registration_path, class: "px-4 py-2 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors" %>
+        <%= link_to t("layouts.nav.features"), features_path, class: "text-sm text-secondary hover:text-matte transition-colors" %>
+        <%= link_to t("layouts.nav.pricing"), pricing_path, class: "text-sm text-secondary hover:text-matte transition-colors" %>
+        <%= render "shared/locale_switcher" %>
+        <%= link_to t("layouts.nav.sign_in"), new_session_path, class: "text-sm text-secondary hover:text-matte transition-colors" %>
+        <%= link_to t("layouts.nav.get_started"), new_registration_path, class: "px-4 py-2 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors" %>
       </div>
     </nav>
   </header>
@@ -49,32 +50,32 @@
       <div class="grid grid-cols-4 gap-8">
         <div>
           <p class="text-lg font-semibold tracking-tight">Loyalty Card</p>
-          <p class="text-secondary text-sm mt-2">White-label loyalty programs for local businesses.</p>
+          <p class="text-secondary text-sm mt-2"><%= t("layouts.footer.tagline") %></p>
         </div>
         <div>
-          <p class="text-xs text-secondary uppercase tracking-wider font-medium mb-3">Product</p>
+          <p class="text-xs text-secondary uppercase tracking-wider font-medium mb-3"><%= t("layouts.footer.product") %></p>
           <div class="space-y-2">
-            <%= link_to "Features", features_path, class: "block text-sm text-secondary hover:text-matte transition-colors" %>
-            <%= link_to "Pricing", pricing_path, class: "block text-sm text-secondary hover:text-matte transition-colors" %>
+            <%= link_to t("layouts.footer.features"), features_path, class: "block text-sm text-secondary hover:text-matte transition-colors" %>
+            <%= link_to t("layouts.footer.pricing"), pricing_path, class: "block text-sm text-secondary hover:text-matte transition-colors" %>
           </div>
         </div>
         <div>
-          <p class="text-xs text-secondary uppercase tracking-wider font-medium mb-3">Company</p>
+          <p class="text-xs text-secondary uppercase tracking-wider font-medium mb-3"><%= t("layouts.footer.company") %></p>
           <div class="space-y-2">
-            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors">About</a>
-            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors">Contact</a>
+            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors"><%= t("layouts.footer.about") %></a>
+            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors"><%= t("layouts.footer.contact") %></a>
           </div>
         </div>
         <div>
-          <p class="text-xs text-secondary uppercase tracking-wider font-medium mb-3">Legal</p>
+          <p class="text-xs text-secondary uppercase tracking-wider font-medium mb-3"><%= t("layouts.footer.legal") %></p>
           <div class="space-y-2">
-            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors">Privacy</a>
-            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors">Terms</a>
+            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors"><%= t("layouts.footer.privacy") %></a>
+            <a href="#" class="block text-sm text-secondary hover:text-matte transition-colors"><%= t("layouts.footer.terms") %></a>
           </div>
         </div>
       </div>
       <div class="mt-12 pt-6 border-t border-border">
-        <p class="text-secondary text-xs">&copy; <%= Date.current.year %> Loyalty Card. All rights reserved.</p>
+        <p class="text-secondary text-xs">&copy; <%= Date.current.year %> Loyalty Card. <%= t("layouts.footer.rights") %></p>
       </div>
     </div>
   </footer>

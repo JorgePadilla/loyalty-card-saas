@@ -14,6 +14,7 @@ class User < ApplicationRecord
   validates :email_address, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :first_name, presence: true
   validates :role, presence: true
+  validates :locale, inclusion: { in: %w[en es] }, allow_nil: true
 
   scope :customers, -> { where(role: :customer) }
   scope :staff_members, -> { where(role: [:staff, :manager, :owner]) }

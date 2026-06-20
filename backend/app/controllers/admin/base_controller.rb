@@ -12,7 +12,7 @@ class Admin::BaseController < ApplicationController
 
   def require_staff_role
     unless current_user&.staff_or_above?
-      redirect_to root_path, alert: "You don't have access to the admin area."
+      redirect_to root_path, alert: t("admin.base.flash.no_admin_access")
     end
   end
 
@@ -26,6 +26,6 @@ class Admin::BaseController < ApplicationController
   helper_method :current_user
 
   def user_not_authorized
-    redirect_back fallback_location: admin_root_path, alert: "You are not authorized to perform this action."
+    redirect_back fallback_location: admin_root_path, alert: t("admin.base.flash.not_authorized")
   end
 end

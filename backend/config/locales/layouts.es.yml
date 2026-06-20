@@ -1,0 +1,29 @@
+es:
+  layouts:
+    meta:
+      description: "Programa de lealtad de marca blanca para tu negocio. Premia a tus clientes y haz crecer tus ingresos."
+    nav:
+      features: "Características"
+      pricing: "Precios"
+      sign_in: "Iniciar sesión"
+      get_started: "Empezar"
+    footer:
+      tagline: "Programas de lealtad de marca blanca para negocios locales."
+      product: "Producto"
+      company: "Empresa"
+      legal: "Legal"
+      features: "Características"
+      pricing: "Precios"
+      about: "Acerca de"
+      contact: "Contacto"
+      privacy: "Privacidad"
+      terms: "Términos"
+      rights: "Todos los derechos reservados."
+    admin_nav:
+      dashboard: "Panel"
+      customers: "Clientes"
+      rewards: "Recompensas"
+      campaigns: "Campañas"
+      visits: "Visitas"
+      subscription: "Suscripción"
+      sign_out: "Cerrar sesión"

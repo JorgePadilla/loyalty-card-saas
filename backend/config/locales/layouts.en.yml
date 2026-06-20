@@ -1,0 +1,29 @@
+en:
+  layouts:
+    meta:
+      description: "White-label loyalty program for your business. Reward your customers, grow your revenue."
+    nav:
+      features: "Features"
+      pricing: "Pricing"
+      sign_in: "Sign in"
+      get_started: "Get Started"
+    footer:
+      tagline: "White-label loyalty programs for local businesses."
+      product: "Product"
+      company: "Company"
+      legal: "Legal"
+      features: "Features"
+      pricing: "Pricing"
+      about: "About"
+      contact: "Contact"
+      privacy: "Privacy"
+      terms: "Terms"
+      rights: "All rights reserved."
+    admin_nav:
+      dashboard: "Dashboard"
+      customers: "Customers"
+      rewards: "Rewards"
+      campaigns: "Campaigns"
+      visits: "Visits"
+      subscription: "Subscription"
+      sign_out: "Sign out"

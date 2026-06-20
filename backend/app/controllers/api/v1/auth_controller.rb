@@ -13,7 +13,7 @@ class Api::V1::AuthController < Api::V1::BaseController
         refresh_token: tokens[:refresh_token]
       }
     else
-      render json: { error: "Invalid email or password" }, status: :unauthorized
+      render json: { error: t("api.errors.invalid_credentials") }, status: :unauthorized
     end
   end
 
@@ -55,7 +55,7 @@ class Api::V1::AuthController < Api::V1::BaseController
         refresh_token: tokens[:refresh_token]
       }
     else
-      render json: { error: "Invalid refresh token" }, status: :unauthorized
+      render json: { error: t("api.errors.invalid_refresh_token") }, status: :unauthorized
     end
   end
 
@@ -76,7 +76,8 @@ class Api::V1::AuthController < Api::V1::BaseController
       last_name: user.last_name,
       full_name: user.full_name,
       role: user.role,
-      tenant_id: user.tenant_id
+      tenant_id: user.tenant_id,
+      locale: user.locale
     }
   end
 end

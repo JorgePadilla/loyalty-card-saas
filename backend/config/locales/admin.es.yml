@@ -1,0 +1,244 @@
+es:
+  admin:
+    common:
+      edit: "Editar"
+      back: "Volver"
+      cancel: "Cancelar"
+      delete: "Eliminar"
+      confirm: "¿Estás seguro?"
+      active: "Activo"
+      inactive: "Inactivo"
+      any: "Cualquiera"
+      em_dash: "—"
+      points_abbr: "pts"
+      actions: "Acciones"
+    dashboard:
+      title: "Panel"
+      subtitle: "Resumen de tu programa de lealtad"
+      stats:
+        total_customers: "Clientes totales"
+        visits_today: "Visitas de hoy"
+        points_this_week: "Puntos esta semana"
+        pending_redemptions: "Canjes pendientes"
+      visits_chart_title: "Visitas — últimos 30 días"
+      quick_actions:
+        title: "Acciones rápidas"
+        new_reward: "Nueva recompensa"
+        new_campaign: "Nueva campaña"
+        add_staff: "Agregar personal"
+      recent_activity:
+        title: "Actividad reciente"
+        empty: "Aún no hay visitas hoy"
+        time_ago: "hace %{time}"
+      top_customers:
+        title: "Mejores clientes"
+        visits: "%{count} visitas"
+        empty: "Aún no hay clientes"
+      active_campaigns:
+        title: "Campañas activas"
+        view_all: "Ver todas"
+        ends: "Termina %{time}"
+        empty: "No hay campañas activas"
+      rewards:
+        title: "Recompensas"
+        manage: "Administrar"
+        empty: "No hay recompensas configuradas"
+        create_action: "Crear recompensa"
+    users:
+      index:
+        title: "Usuarios"
+        count: "%{count} en total"
+        add_user: "Agregar usuario"
+        filter_all: "Todos"
+        empty: "No se encontraron usuarios"
+        col_name: "Nombre"
+        col_email: "Correo"
+        col_role: "Rol"
+        col_points: "Puntos"
+        col_joined: "Se unió"
+        col_actions: "Acciones"
+      show:
+        edit: "Editar"
+        back: "Volver"
+        current_points: "Puntos actuales"
+        total_points_earned: "Puntos totales ganados"
+        visits: "Visitas"
+        tier_subtitle: "Nivel: %{tier}"
+        recent_visits: "Visitas recientes"
+        staff: "Personal: %{name}"
+      new:
+        title: "Agregar usuario"
+        subtitle: "Crea un nuevo miembro del personal o cliente"
+      edit:
+        title: "Editar usuario"
+      form:
+        first_name: "Nombre"
+        last_name: "Apellido"
+        email: "Correo"
+        phone: "Teléfono"
+        role: "Rol"
+        password: "Contraseña"
+        new_password: "Nueva contraseña (déjala en blanco para mantenerla)"
+        cancel: "Cancelar"
+      flash:
+        created: "Usuario creado con éxito."
+        updated: "Usuario actualizado con éxito."
+        deleted: "Usuario eliminado."
+    rewards:
+      index:
+        title: "Recompensas"
+        subtitle: "Administra las recompensas que tus clientes pueden canjear"
+        new_reward: "Nueva recompensa"
+        empty: "Aún no hay recompensas"
+        create_action: "Crea tu primera recompensa"
+        col_name: "Nombre"
+        col_type: "Tipo"
+        col_points: "Puntos"
+        col_tier: "Nivel"
+        col_status: "Estado"
+        col_actions: "Acciones"
+      show:
+        edit: "Editar"
+        back: "Volver"
+        points_cost: "Costo en puntos"
+        description: "Descripción"
+        tier_required: "Nivel requerido"
+        status: "Estado"
+        redemptions: "Canjes"
+      new:
+        title: "Nueva recompensa"
+        subtitle: "Crea una nueva recompensa para tus clientes"
+      edit:
+        title: "Editar recompensa"
+      form:
+        name: "Nombre"
+        name_placeholder: "Corte de pelo gratis"
+        points_cost: "Costo en puntos"
+        points_cost_placeholder: "100"
+        description: "Descripción"
+        description_placeholder: "Describe esta recompensa..."
+        type: "Tipo"
+        min_tier: "Nivel mín."
+        any_tier: "Cualquier nivel"
+        image_url: "URL de imagen"
+        image_url_placeholder: "https://..."
+        active_label: "Activa — visible para los clientes"
+        cancel: "Cancelar"
+      flash:
+        created: "Recompensa creada con éxito."
+        updated: "Recompensa actualizada con éxito."
+        deleted: "Recompensa eliminada."
+    campaigns:
+      index:
+        title: "Campañas"
+        subtitle: "Promociones con multiplicador de puntos"
+        new_campaign: "Nueva campaña"
+        empty: "Aún no hay campañas"
+        create_action: "Crea tu primera campaña"
+        col_name: "Nombre"
+        col_multiplier: "Multiplicador"
+        col_period: "Período"
+        col_status: "Estado"
+        col_actions: "Acciones"
+        active_now: "Activa ahora"
+        scheduled: "Programada"
+        inactive: "Inactiva"
+      show:
+        active_now: "Activa ahora"
+        edit: "Editar"
+        back: "Volver"
+        multiplier: "Multiplicador"
+        description: "Descripción"
+        period: "Período"
+      new:
+        title: "Nueva campaña"
+        subtitle: "Crea una promoción con multiplicador de puntos"
+      edit:
+        title: "Editar campaña"
+      form:
+        name: "Nombre"
+        name_placeholder: "Puntos dobles de fin de semana"
+        description: "Descripción"
+        multiplier: "Multiplicador"
+        start_date: "Fecha de inicio"
+        end_date: "Fecha de fin"
+        active_label: "Activa — la campaña está en marcha"
+        cancel: "Cancelar"
+      flash:
+        created: "Campaña creada con éxito."
+        updated: "Campaña actualizada con éxito."
+        deleted: "Campaña eliminada."
+    visits:
+      index:
+        title: "Visitas"
+        subtitle: "Registros recientes de clientes"
+        empty: "Aún no hay visitas"
+        col_customer: "Cliente"
+        col_service: "Servicio"
+        col_staff: "Personal"
+        col_points: "Puntos"
+        col_date: "Fecha"
+      show:
+        title: "Detalles de la visita"
+        back: "Volver a visitas"
+        customer: "Cliente"
+        service: "Servicio"
+        points_earned: "Puntos ganados"
+        staff: "Personal"
+        date: "Fecha"
+    subscriptions:
+      show:
+        title: "Suscripción"
+        subtitle: "Administra tu plan y facturación"
+        checkout_success: "Tu suscripción ha sido actualizada. Puede tardar un momento en reflejarse."
+        checkout_canceled: "El pago fue cancelado. No se realizaron cambios."
+        current_plan: "Plan actual"
+        manage_billing: "Administrar facturación"
+        next_billing: "Próxima facturación: %{date}"
+        past_due_warning: "Tu pago falló. Actualiza tu información de facturación para evitar la interrupción del servicio."
+        available_plans: "Planes disponibles"
+        per_month: "/mes"
+        current_plan_label: "Plan actual"
+        contact_downgrade: "Contacta a soporte para bajar de plan"
+        upgrade_to: "Mejorar a %{plan}"
+        plans:
+          free:
+            name: "Gratis"
+            features:
+              customers: "50 clientes"
+              staff: "1 miembro del personal"
+              rewards: "Recompensas básicas"
+              checkins: "Registros por QR"
+          starter:
+            name: "Starter"
+            features:
+              customers: "500 clientes"
+              staff: "5 miembros del personal"
+              campaigns: "Campañas"
+              analytics: "Panel de analíticas"
+              tiers: "Niveles de clientes"
+          pro:
+            name: "Pro"
+            features:
+              customers: "Clientes ilimitados"
+              staff: "15 miembros del personal"
+              analytics: "Analíticas avanzadas"
+              branding: "Marca personalizada"
+              support: "Soporte prioritario"
+          enterprise:
+            name: "Enterprise"
+            features:
+              everything: "Todo ilimitado"
+              staff: "Personal ilimitado"
+              locations: "Múltiples sucursales"
+              api: "Acceso a la API"
+              support: "Soporte dedicado"
+      flash:
+        invalid_plan: "Plan seleccionado no válido."
+        already_on_plan: "Ya tienes el plan %{plan}."
+        billing_error: "Error de facturación: %{message}"
+        no_active_billing: "No hay facturación activa para administrar."
+    base:
+      flash:
+        no_admin_access: "No tienes acceso al área de administración."
+        not_authorized: "No estás autorizado para realizar esta acción."

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_24_061906) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_20_155301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -286,6 +286,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_24_061906) do
     t.integer "role", default: 0, null: false
     t.string "stripe_customer_id"
     t.string "refresh_token"
+    t.string "locale"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["tenant_id", "email_address"], name: "index_users_on_tenant_id_and_email_address", unique: true
     t.index ["tenant_id"], name: "index_users_on_tenant_id"

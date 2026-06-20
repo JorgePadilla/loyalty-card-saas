@@ -8,12 +8,13 @@ class Admin::SubscriptionsController < Admin::BaseController
     plan = params[:plan]
 
     unless %w[starter pro enterprise].include?(plan)
-      redirect_to admin_subscription_path, alert: "Invalid plan selected."
+      redirect_to admin_subscription_path, alert: t("admin.subscriptions.flash.invalid_plan")
       return
     end
 
     if current_user.tenant.plan == plan
-      redirect_to admin_subscription_path, notice: "You are already on the #{plan.capitalize} plan."
+      plan_name = t("enums.tenant.plan.#{plan}", default: plan.capitalize)
+      redirect_to admin_subscription_path, notice: t("admin.subscriptions.flash.already_on_plan", plan: plan_name)
       return
     end
 
@@ -26,13 +27,13 @@ class Admin::SubscriptionsController < Admin::BaseController
 
     redirect_to checkout_url, allow_other_host: true
   rescue Stripe::StripeError => e
-    redirect_to admin_subscription_path, alert: "Billing error: #{e.message}"
+    redirect_to admin_subscription_path, alert: t("admin.subscriptions.flash.billing_error", message: e.message)
   end
 
   def billing_portal
     subscription = current_user.tenant.subscription
     unless subscription&.stripe_subscription_id&.start_with?("sub_")
-      redirect_to admin_subscription_path, alert: "No active billing to manage."
+      redirect_to admin_subscription_path, alert: t("admin.subscriptions.flash.no_active_billing")
       return
     end
 
@@ -44,6 +45,6 @@ class Admin::SubscriptionsController < Admin::BaseController
 
     redirect_to portal_session.url, allow_other_host: true
   rescue Stripe::StripeError => e
-    redirect_to admin_subscription_path, alert: "Billing error: #{e.message}"
+    redirect_to admin_subscription_path, alert: t("admin.subscriptions.flash.billing_error", message: e.message)
   end
 end
