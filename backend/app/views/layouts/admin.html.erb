@@ -27,11 +27,15 @@
       <!-- Nav -->
       <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         <%= admin_nav_link t("layouts.admin_nav.dashboard"), admin_root_path, icon: "grid" %>
-        <%= admin_nav_link t("layouts.admin_nav.customers"), admin_users_path(role: :customer), icon: "users" %>
+        <% if policy(User).index? %>
+          <%= admin_nav_link t("layouts.admin_nav.customers"), admin_users_path(role: :customer), icon: "users" %>
+        <% end %>
         <%= admin_nav_link t("layouts.admin_nav.rewards"), admin_rewards_path, icon: "gift" %>
         <%= admin_nav_link t("layouts.admin_nav.campaigns"), admin_campaigns_path, icon: "zap" %>
         <%= admin_nav_link t("layouts.admin_nav.visits"), admin_visits_path, icon: "calendar" %>
-        <%= admin_nav_link t("layouts.admin_nav.subscription"), admin_subscription_path, icon: "credit-card" %>
+        <% if policy(Subscription).show? %>
+          <%= admin_nav_link t("layouts.admin_nav.subscription"), admin_subscription_path, icon: "credit-card" %>
+        <% end %>
       </nav>
 
       <!-- User -->

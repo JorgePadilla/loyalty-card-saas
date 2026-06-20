@@ -1,4 +1,12 @@
 class UserPolicy < ApplicationPolicy
+  def index?
+    user.owner? || user.manager?
+  end
+
+  def show?
+    user.owner? || user.manager?
+  end
+
   def create?
     user.owner? || user.manager?
   end

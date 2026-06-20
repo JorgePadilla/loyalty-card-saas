@@ -25,7 +25,7 @@
 
 <!-- Row 2: Chart + Quick Actions -->
 <div class="grid grid-cols-4 gap-4 mb-4">
-  <div class="col-span-3 bg-surface border border-border rounded-xl p-6">
+  <div class="<%= policy(Reward).create? ? "col-span-3" : "col-span-4" %> bg-surface border border-border rounded-xl p-6">
     <h3 class="text-matte text-sm font-semibold mb-4"><%= t("admin.dashboard.visits_chart_title") %></h3>
     <%= turbo_frame_tag :visits_chart, src: admin_dashboard_chart_path, loading: :lazy do %>
       <div class="h-[200px] flex items-center justify-center">
@@ -34,14 +34,16 @@
     <% end %>
   </div>
 
-  <div class="bg-surface border border-border rounded-xl p-6">
-    <h3 class="text-matte text-sm font-semibold mb-4"><%= t("admin.dashboard.quick_actions.title") %></h3>
-    <div class="space-y-2">
-      <%= link_to t("admin.dashboard.quick_actions.new_reward"), new_admin_reward_path, class: "block w-full px-4 py-2.5 bg-matte text-white text-sm text-center rounded-xl hover:bg-matte-hover transition-colors" %>
-      <%= link_to t("admin.dashboard.quick_actions.new_campaign"), new_admin_campaign_path, class: "block w-full px-4 py-2.5 bg-matte text-white text-sm text-center rounded-xl hover:bg-matte-hover transition-colors" %>
-      <%= link_to t("admin.dashboard.quick_actions.add_staff"), new_admin_user_path, class: "block w-full px-4 py-2.5 border border-border text-matte text-sm text-center rounded-xl hover:bg-surface-variant transition-colors" %>
+  <% if policy(Reward).create? %>
+    <div class="bg-surface border border-border rounded-xl p-6">
+      <h3 class="text-matte text-sm font-semibold mb-4"><%= t("admin.dashboard.quick_actions.title") %></h3>
+      <div class="space-y-2">
+        <%= link_to t("admin.dashboard.quick_actions.new_reward"), new_admin_reward_path, class: "block w-full px-4 py-2.5 bg-matte text-white text-sm text-center rounded-xl hover:bg-matte-hover transition-colors" %>
+        <%= link_to t("admin.dashboard.quick_actions.new_campaign"), new_admin_campaign_path, class: "block w-full px-4 py-2.5 bg-matte text-white text-sm text-center rounded-xl hover:bg-matte-hover transition-colors" %>
+        <%= link_to t("admin.dashboard.quick_actions.add_staff"), new_admin_user_path, class: "block w-full px-4 py-2.5 border border-border text-matte text-sm text-center rounded-xl hover:bg-surface-variant transition-colors" %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
 
 <!-- Row 3: Recent Activity + Top Customers -->
@@ -119,7 +121,7 @@
         <% end %>
       </div>
     <% else %>
-      <%= render "shared/empty_state", message: t("admin.dashboard.rewards.empty"), action_path: new_admin_reward_path, action_label: t("admin.dashboard.rewards.create_action") %>
+      <%= render "shared/empty_state", message: t("admin.dashboard.rewards.empty"), action_path: (new_admin_reward_path if policy(Reward).create?), action_label: t("admin.dashboard.rewards.create_action") %>
     <% end %>
   </div>
 </div>

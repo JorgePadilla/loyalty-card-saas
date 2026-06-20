@@ -5,7 +5,9 @@
     <h1 class="text-2xl font-semibold text-matte"><%= t("admin.rewards.index.title") %></h1>
     <p class="text-secondary text-sm mt-1"><%= t("admin.rewards.index.subtitle") %></p>
   </div>
-  <%= link_to t("admin.rewards.index.new_reward"), new_admin_reward_path, class: "px-4 py-2.5 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors" %>
+  <% if policy(Reward).create? %>
+    <%= link_to t("admin.rewards.index.new_reward"), new_admin_reward_path, class: "px-4 py-2.5 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors" %>
+  <% end %>
 </div>
 
 <div class="bg-surface border border-border rounded-xl overflow-hidden">
@@ -39,14 +41,18 @@
               <% end %>
             </td>
             <td class="px-6 py-4 text-right">
-              <%= link_to t("admin.common.edit"), edit_admin_reward_path(reward), class: "text-secondary text-sm hover:text-matte transition-colors" %>
-              <%= button_to t("admin.common.delete"), admin_reward_path(reward), method: :delete, class: "text-secondary text-sm hover:text-danger transition-colors ml-3", data: { turbo_confirm: t("admin.common.confirm") } %>
+              <% if policy(reward).update? %>
+                <%= link_to t("admin.common.edit"), edit_admin_reward_path(reward), class: "text-secondary text-sm hover:text-matte transition-colors" %>
+              <% end %>
+              <% if policy(reward).destroy? %>
+                <%= button_to t("admin.common.delete"), admin_reward_path(reward), method: :delete, class: "text-secondary text-sm hover:text-danger transition-colors ml-3", data: { turbo_confirm: t("admin.common.confirm") } %>
+              <% end %>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   <% else %>
-    <%= render "shared/empty_state", message: t("admin.rewards.index.empty"), action_path: new_admin_reward_path, action_label: t("admin.rewards.index.create_action") %>
+    <%= render "shared/empty_state", message: t("admin.rewards.index.empty"), action_path: (new_admin_reward_path if policy(Reward).create?), action_label: t("admin.rewards.index.create_action") %>
   <% end %>
 </div>

@@ -1,4 +1,8 @@
 class Admin::DashboardController < Admin::BaseController
+  # Dashboard shows aggregate stats (no single record to authorize); access is
+  # already gated to staff+ by require_staff_role.
+  skip_after_action :verify_authorized
+
   def show
     @total_customers = User.customers.count
     @visits_today = Visit.today.count

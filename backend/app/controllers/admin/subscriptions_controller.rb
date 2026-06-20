@@ -1,10 +1,12 @@
 class Admin::SubscriptionsController < Admin::BaseController
   def show
+    authorize Subscription
     @subscription = current_user.tenant.subscription
     @tenant = current_user.tenant
   end
 
   def create
+    authorize Subscription, :create?
     plan = params[:plan]
 
     unless %w[starter pro enterprise].include?(plan)
@@ -31,6 +33,7 @@ class Admin::SubscriptionsController < Admin::BaseController
   end
 
   def billing_portal
+    authorize Subscription, :billing_portal?
     subscription = current_user.tenant.subscription
     unless subscription&.stripe_subscription_id&.start_with?("sub_")
       redirect_to admin_subscription_path, alert: t("admin.subscriptions.flash.no_active_billing")

@@ -4,6 +4,7 @@ class Admin::UsersController < Admin::BaseController
   before_action :set_user, only: %i[show edit update destroy]
 
   def index
+    authorize User
     @role_filter = params[:role]
     @users = if @role_filter.present?
       User.where(role: @role_filter)
@@ -13,16 +14,19 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def show
+    authorize @user
     @loyalty_card = @user.loyalty_card
     @recent_visits = @user.visits.recent.limit(10) if @user.customer?
   end
 
   def new
     @user = User.new
+    authorize @user
   end
 
   def create
     @user = User.new(user_params)
+    authorize @user
     @user.password = params[:user][:password] if params[:user][:password].present?
 
     if @user.customer?
@@ -42,9 +46,11 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def edit
+    authorize @user
   end
 
   def update
+    authorize @user
     update_params = user_params
     update_params = update_params.except(:password) if update_params[:password].blank?
     if @user.update(update_params)
@@ -55,6 +61,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def destroy
+    authorize @user
     @user.destroy
     redirect_to admin_users_path, notice: t("admin.users.flash.deleted")
   end
