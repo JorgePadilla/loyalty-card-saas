@@ -2,9 +2,9 @@ module PlanEnforcement
   extend ActiveSupport::Concern
 
   PLAN_LIMITS = {
-    "free" => { customers: 50, staff: 1 },
+    "free" => { customers: 25, staff: 1 },
     "starter" => { customers: 500, staff: 5 },
-    "pro" => { customers: Float::INFINITY, staff: 15 },
+    "pro" => { customers: 1_000, staff: 15 },
     "enterprise" => { customers: Float::INFINITY, staff: Float::INFINITY }
   }.freeze
 

@@ -205,7 +205,7 @@ es:
           free:
             name: "Gratis"
             features:
-              customers: "50 clientes"
+              customers: "25 clientes"
               staff: "1 miembro del personal"
               rewards: "Recompensas básicas"
               checkins: "Registros por QR"
@@ -220,7 +220,7 @@ es:
           pro:
             name: "Pro"
             features:
-              customers: "Clientes ilimitados"
+              customers: "1,000 clientes"
               staff: "15 miembros del personal"
               analytics: "Analíticas avanzadas"
               branding: "Marca personalizada"
