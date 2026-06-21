@@ -28,7 +28,8 @@
       <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         <%= admin_nav_link t("layouts.admin_nav.dashboard"), admin_root_path, icon: "grid" %>
         <% if policy(User).index? %>
-          <%= admin_nav_link t("layouts.admin_nav.customers"), admin_users_path(role: :customer), icon: "users" %>
+          <%= admin_nav_link t("layouts.admin_nav.customers"), admin_customers_path, icon: "users" %>
+          <%= admin_nav_link t("layouts.admin_nav.team"), admin_users_path, icon: "user" %>
         <% end %>
         <%= admin_nav_link t("layouts.admin_nav.rewards"), admin_rewards_path, icon: "gift" %>
         <%= admin_nav_link t("layouts.admin_nav.campaigns"), admin_campaigns_path, icon: "zap" %>

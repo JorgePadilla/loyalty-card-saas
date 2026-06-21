@@ -1,0 +1,84 @@
+<% content_for(:title, t("admin.customers.title")) %>
+
+<div class="mb-6">
+  <h1 class="text-2xl font-semibold text-matte"><%= t("admin.customers.title") %></h1>
+  <p class="text-secondary text-sm mt-1"><%= t("admin.customers.count", count: @pagy.count) %></p>
+</div>
+
+<!-- Search + sort -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-6">
+  <%= form_with url: admin_customers_path, method: :get, class: "w-full md:max-w-sm" do |f| %>
+    <%= f.hidden_field :sort, value: @sort %>
+    <%= f.search_field :q, value: @q, placeholder: t("admin.customers.search_placeholder"),
+          class: "w-full px-4 py-2 bg-surface border border-border rounded-xl text-sm text-matte placeholder:text-secondary focus:outline-none focus:border-matte transition-colors" %>
+  <% end %>
+
+  <div class="flex items-center gap-1 flex-wrap">
+    <span class="text-secondary text-xs mr-1"><%= t("admin.customers.sort_label") %></span>
+    <% {
+      "recent"   => t("admin.customers.sort_recent"),
+      "points"   => t("admin.customers.sort_points"),
+      "inactive" => t("admin.customers.sort_inactive"),
+      "name"     => t("admin.customers.sort_name")
+    }.each do |key, label| %>
+      <%= link_to label, url_for(request.query_parameters.merge(sort: key, page: nil)),
+            class: "px-2.5 py-1 text-sm rounded-lg #{@sort == key ? 'bg-matte text-white' : 'text-secondary hover:text-matte hover:bg-surface-variant'} transition-colors" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="bg-surface border border-border rounded-xl overflow-hidden">
+  <% if @customers.any? %>
+    <table class="w-full">
+      <thead>
+        <tr class="border-b border-border">
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.customers.col_customer") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.customers.col_contact") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.customers.col_tier") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.customers.col_points") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.customers.col_visits") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("admin.customers.col_last_visit") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @customers.each do |customer| %>
+          <% card = customer.loyalty_card %>
+          <tr class="border-b border-border last:border-0 hover:bg-surface-variant/50 transition-colors">
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-matte text-xs font-semibold">
+                  <%= customer.first_name&.first&.upcase %>
+                </div>
+                <%= link_to customer.full_name, admin_user_path(customer), class: "text-matte text-sm font-medium hover:underline" %>
+              </div>
+            </td>
+            <td class="px-6 py-4">
+              <% if customer.phone.present? %>
+                <p class="text-secondary text-sm"><%= customer.phone %></p>
+                <%= link_to t("admin.customers.whatsapp"), "https://wa.me/#{customer.phone.gsub(/\D/, '')}", target: "_blank", rel: "noopener", class: "text-success text-xs hover:underline" %>
+              <% else %>
+                <span class="text-secondary text-sm"><%= t("admin.common.em_dash") %></span>
+              <% end %>
+            </td>
+            <td class="px-6 py-4">
+              <% if card %>
+                <span class="px-2 py-0.5 bg-surface-variant text-matte text-xs rounded-full"><%= t_enum(:loyalty_card, :tier, card.tier) %></span>
+              <% else %>
+                <span class="text-secondary text-sm"><%= t("admin.common.em_dash") %></span>
+              <% end %>
+            </td>
+            <td class="px-6 py-4 text-matte text-sm font-mono"><%= number_with_delimiter(card&.current_points || 0) %></td>
+            <td class="px-6 py-4 text-matte text-sm font-mono"><%= card&.visits_count || 0 %></td>
+            <td class="px-6 py-4 text-secondary text-xs">
+              <%= card&.last_visit_at ? l(card.last_visit_at.to_date, format: :medium) : t("admin.customers.never_visited") %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <%= render "shared/empty_state", message: (@q.present? ? t("admin.customers.search_empty") : t("admin.customers.empty")) %>
+  <% end %>
+</div>
+
+<%= render "shared/pagination", pagy: @pagy %>

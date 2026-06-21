@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resource :dashboard, only: :show
     get "dashboard/chart", to: "dashboard#chart", as: :dashboard_chart
     resources :rewards
+    resources :customers, only: :index
     resources :users
     resources :campaigns
     resources :visits, only: %i[index show]

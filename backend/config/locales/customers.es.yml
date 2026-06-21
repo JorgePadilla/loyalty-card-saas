@@ -1,0 +1,26 @@
+es:
+  layouts:
+    admin_nav:
+      team: "Equipo"
+  admin:
+    customers:
+      title: "Clientes"
+      count:
+        one: "%{count} cliente"
+        other: "%{count} clientes"
+      search_placeholder: "Buscar por nombre o teléfono…"
+      sort_label: "Ordenar:"
+      sort_recent: "Recientes"
+      sort_points: "Más puntos"
+      sort_inactive: "Inactivos"
+      sort_name: "Nombre"
+      col_customer: "Cliente"
+      col_contact: "Contacto"
+      col_tier: "Nivel"
+      col_points: "Puntos"
+      col_visits: "Visitas"
+      col_last_visit: "Última visita"
+      whatsapp: "WhatsApp"
+      never_visited: "Nunca"
+      empty: "Aún no tienes clientes."
+      search_empty: "No se encontraron clientes."
