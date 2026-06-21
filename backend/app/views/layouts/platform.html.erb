@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>" class="h-full">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= content_for?(:title) ? "#{yield(:title)} · " : "" %>Platform — Loyalty Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+<body class="h-full bg-cream font-sans text-matte antialiased">
+  <header class="bg-matte text-white">
+    <div class="max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-6">
+        <span class="font-semibold tracking-tight">Loyalty Card <span class="text-gold">· Platform</span></span>
+        <% if current_platform_admin %>
+          <nav class="flex items-center gap-1 text-sm">
+            <%= link_to t("platform.nav.dashboard"), platform_root_path, class: "px-3 py-1.5 rounded-lg #{current_page?(platform_root_path) ? "bg-white/10 text-white" : "text-white/60 hover:text-white hover:bg-white/5"} transition-colors" %>
+            <%= link_to t("platform.nav.tenants"), platform_tenants_path, class: "px-3 py-1.5 rounded-lg #{request.path.start_with?("/platform/tenants") ? "bg-white/10 text-white" : "text-white/60 hover:text-white hover:bg-white/5"} transition-colors" %>
+          </nav>
+        <% end %>
+      </div>
+      <% if current_platform_admin %>
+        <div class="flex items-center gap-4 text-sm">
+          <span class="text-white/50 hidden sm:inline"><%= current_platform_admin.email_address %></span>
+          <%= render "shared/locale_switcher", dark: true %>
+          <%= button_to t("platform.nav.sign_out"), platform_session_path, method: :delete, class: "text-white/60 hover:text-white transition-colors" %>
+        </div>
+      <% end %>
+    </div>
+  </header>
+
+  <main class="max-w-[1400px] mx-auto px-6 py-8">
+    <% if flash[:notice] %>
+      <div class="mb-6 px-4 py-3 bg-success/10 text-success text-sm rounded-xl border border-success/20"><%= flash[:notice] %></div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="mb-6 px-4 py-3 bg-error/10 text-error text-sm rounded-xl border border-error/20"><%= flash[:alert] %></div>
+    <% end %>
+    <%= yield %>
+  </main>
+</body>
+</html>

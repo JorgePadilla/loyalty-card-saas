@@ -9,6 +9,11 @@ class Tenant < ApplicationRecord
 
   enum :plan, { free: 0, starter: 1, pro: 2, enterprise: 3 }
 
+  PLAN_PRICES = { "free" => 0, "starter" => 29, "pro" => 79, "enterprise" => 199 }.freeze
+
+  scope :active, -> { where(suspended_at: nil) }
+  scope :suspended, -> { where.not(suspended_at: nil) }
+
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true, format: { with: /\A[a-z0-9-]+\z/ }
 
@@ -20,6 +25,14 @@ class Tenant < ApplicationRecord
 
   def currency
     settings.fetch("currency", "USD")
+  end
+
+  def monthly_price
+    PLAN_PRICES.fetch(plan, 0)
+  end
+
+  def suspended?
+    suspended_at.present?
   end
 
   private

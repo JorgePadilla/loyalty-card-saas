@@ -1,0 +1,82 @@
+<% content_for(:title, @tenant.name) %>
+
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <h1 class="text-2xl font-semibold text-matte"><%= @tenant.name %></h1>
+    <p class="text-secondary text-sm">/<%= @tenant.slug %> · <%= t("platform.tenants.created", date: l(@tenant.created_at.to_date, format: :long)) %></p>
+  </div>
+  <%= link_to t("platform.tenants.back"), platform_tenants_path, class: "text-secondary text-sm hover:text-matte transition-colors" %>
+</div>
+
+<!-- Status + actions -->
+<div class="bg-surface border border-border rounded-xl p-6 mb-4">
+  <div class="flex items-center justify-between flex-wrap gap-3">
+    <div>
+      <p class="text-xs text-secondary uppercase tracking-wider font-medium"><%= t("platform.tenants.col_status") %></p>
+      <% if @tenant.suspended? %>
+        <p class="text-error font-semibold mt-1"><%= t("platform.tenants.status_suspended") %></p>
+      <% else %>
+        <p class="text-success font-semibold mt-1"><%= t("platform.tenants.status_active") %></p>
+      <% end %>
+    </div>
+    <div class="flex items-center gap-2">
+      <% if @tenant.suspended? %>
+        <%= button_to t("platform.tenants.actions.reactivate"), reactivate_platform_tenant_path(@tenant),
+              class: "px-4 py-2 bg-success text-white text-sm rounded-xl hover:opacity-90 transition-opacity cursor-pointer" %>
+      <% else %>
+        <%= button_to t("platform.tenants.actions.suspend"), suspend_platform_tenant_path(@tenant),
+              class: "px-4 py-2 border border-error text-error text-sm rounded-xl hover:bg-error/5 transition-colors cursor-pointer",
+              form: { data: { turbo_confirm: t("platform.tenants.actions.suspend_confirm") } } %>
+      <% end %>
+      <% if @owner %>
+        <%= button_to t("platform.tenants.actions.impersonate"), impersonate_platform_tenant_path(@tenant),
+              class: "px-4 py-2 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors cursor-pointer",
+              form: { data: { turbo_confirm: t("platform.tenants.actions.impersonate_confirm", name: @owner.full_name) } } %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="grid grid-cols-3 gap-4 mb-4">
+  <%= render "shared/stat_card", label: t("platform.tenants.col_customers"), value: @customer_count %>
+  <%= render "shared/stat_card", label: t("platform.tenants.col_staff"), value: @staff_count %>
+  <%= render "shared/stat_card", label: t("platform.tenants.col_plan"), value: t_enum(:tenant, :plan, @tenant.plan) %>
+</div>
+
+<!-- Change plan -->
+<div class="bg-surface border border-border rounded-xl p-6 mb-4">
+  <h3 class="text-matte text-sm font-semibold mb-3"><%= t("platform.tenants.actions.change_plan") %></h3>
+  <%= form_with url: update_plan_platform_tenant_path(@tenant), method: :patch, class: "flex items-center gap-2" do |f| %>
+    <%= f.select :plan, Tenant.plans.keys.map { |p| [t_enum(:tenant, :plan, p), p] }, { selected: @tenant.plan },
+          class: "px-3 py-2 bg-cream border border-border rounded-xl text-sm" %>
+    <%= f.submit t("platform.tenants.actions.update_plan_submit"),
+          class: "px-4 py-2 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors cursor-pointer" %>
+  <% end %>
+</div>
+
+<!-- Subscription -->
+<% if @subscription %>
+  <div class="bg-surface border border-border rounded-xl p-6 mb-4">
+    <h3 class="text-matte text-sm font-semibold mb-3"><%= t("platform.tenants.subscription") %></h3>
+    <p class="text-secondary text-sm">
+      <%= t_enum(:subscription, :status, @subscription.status) %><% if @subscription.current_period_end %> · <%= l(@subscription.current_period_end.to_date, format: :long) %><% end %>
+    </p>
+  </div>
+<% end %>
+
+<!-- Team -->
+<div class="bg-surface border border-border rounded-xl p-6">
+  <h3 class="text-matte text-sm font-semibold mb-3"><%= t("platform.tenants.users") %></h3>
+  <% if @users.any? %>
+    <div class="space-y-1">
+      <% @users.each do |u| %>
+        <div class="flex items-center justify-between py-1.5 border-b border-border last:border-0">
+          <span class="text-matte text-sm"><%= u.full_name %> <span class="text-secondary text-xs">· <%= u.email_address %></span></span>
+          <span class="text-secondary text-xs"><%= t_enum(:user, :role, u.role) %></span>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-secondary text-sm"><%= t("admin.common.em_dash") %></p>
+  <% end %>
+</div>

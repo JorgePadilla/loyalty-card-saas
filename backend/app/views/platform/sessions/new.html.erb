@@ -1,0 +1,21 @@
+<% content_for(:title, t("platform.login.title")) %>
+
+<div class="max-w-sm mx-auto mt-12">
+  <h1 class="text-2xl font-semibold text-matte"><%= t("platform.login.title") %></h1>
+  <p class="text-secondary text-sm mt-1 mb-6"><%= t("platform.login.subtitle") %></p>
+
+  <%= form_with url: platform_session_path, method: :post, class: "space-y-4" do |f| %>
+    <div>
+      <label class="block text-sm text-secondary mb-1"><%= t("platform.login.email") %></label>
+      <%= f.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
+            class: "w-full px-4 py-2 bg-surface border border-border rounded-xl text-sm focus:outline-none focus:border-matte transition-colors" %>
+    </div>
+    <div>
+      <label class="block text-sm text-secondary mb-1"><%= t("platform.login.password") %></label>
+      <%= f.password_field :password, required: true, autocomplete: "current-password",
+            class: "w-full px-4 py-2 bg-surface border border-border rounded-xl text-sm focus:outline-none focus:border-matte transition-colors" %>
+    </div>
+    <%= f.submit t("platform.login.submit"),
+          class: "w-full px-4 py-2.5 bg-matte text-white text-sm rounded-xl hover:bg-matte-hover transition-colors cursor-pointer" %>
+  <% end %>
+</div>

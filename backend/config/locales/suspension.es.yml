@@ -1,0 +1,7 @@
+es:
+  auth:
+    flash:
+      tenant_suspended: "Esta cuenta está suspendida. Contacta a soporte."
+  api:
+    errors:
+      tenant_suspended: "Cuenta suspendida"

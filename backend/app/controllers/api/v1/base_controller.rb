@@ -4,6 +4,7 @@ class Api::V1::BaseController < ActionController::API
   around_action :switch_api_locale
   before_action :authenticate_api_user!
   before_action :set_tenant
+  before_action :ensure_tenant_active
 
   rescue_from Pundit::NotAuthorizedError, with: :forbidden
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
@@ -29,6 +30,12 @@ class Api::V1::BaseController < ActionController::API
 
   def set_tenant
     ActsAsTenant.current_tenant = current_api_user&.tenant
+  end
+
+  def ensure_tenant_active
+    return unless current_api_user&.tenant&.suspended?
+
+    render json: { error: t("api.errors.tenant_suspended") }, status: :forbidden
   end
 
   def render_json(data, status: :ok)

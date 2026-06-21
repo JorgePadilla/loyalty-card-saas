@@ -1,0 +1,53 @@
+<% content_for(:title, t("platform.tenants.title")) %>
+
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-semibold text-matte"><%= t("platform.tenants.title") %></h1>
+  <p class="text-secondary text-sm"><%= t("platform.tenants.count", count: @pagy.count) %></p>
+</div>
+
+<%= form_with url: platform_tenants_path, method: :get, class: "mb-6 max-w-sm" do |f| %>
+  <%= f.search_field :q, value: params[:q], placeholder: t("platform.tenants.search_placeholder"),
+        class: "w-full px-4 py-2 bg-surface border border-border rounded-xl text-sm placeholder:text-secondary focus:outline-none focus:border-matte transition-colors" %>
+<% end %>
+
+<div class="bg-surface border border-border rounded-xl overflow-hidden">
+  <% if @tenants.any? %>
+    <table class="w-full">
+      <thead>
+        <tr class="border-b border-border">
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("platform.tenants.col_name") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("platform.tenants.col_plan") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("platform.tenants.col_status") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("platform.tenants.col_customers") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("platform.tenants.col_staff") %></th>
+          <th class="text-left px-6 py-3 text-xs text-secondary uppercase tracking-wider font-medium"><%= t("platform.tenants.col_created") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tenants.each do |tenant| %>
+          <tr class="border-b border-border last:border-0 hover:bg-surface-variant/50 transition-colors">
+            <td class="px-6 py-4">
+              <%= link_to tenant.name, platform_tenant_path(tenant), class: "text-matte text-sm font-medium hover:underline" %>
+              <p class="text-secondary text-xs">/<%= tenant.slug %></p>
+            </td>
+            <td class="px-6 py-4 text-secondary text-sm"><%= t_enum(:tenant, :plan, tenant.plan) %></td>
+            <td class="px-6 py-4">
+              <% if tenant.suspended? %>
+                <span class="inline-flex px-2 py-0.5 bg-error/10 text-error text-xs rounded-full"><%= t("platform.tenants.status_suspended") %></span>
+              <% else %>
+                <span class="inline-flex px-2 py-0.5 bg-success/10 text-success text-xs rounded-full"><%= t("platform.tenants.status_active") %></span>
+              <% end %>
+            </td>
+            <td class="px-6 py-4 text-matte text-sm font-mono"><%= @customer_counts[tenant.id] || 0 %></td>
+            <td class="px-6 py-4 text-matte text-sm font-mono"><%= @staff_counts[tenant.id] || 0 %></td>
+            <td class="px-6 py-4 text-secondary text-xs"><%= l(tenant.created_at.to_date, format: :medium) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <%= render "shared/empty_state", message: (params[:q].present? ? t("platform.tenants.search_empty") : t("platform.tenants.empty")) %>
+  <% end %>
+</div>
+
+<%= render "shared/pagination", pagy: @pagy %>

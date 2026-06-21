@@ -1,0 +1,38 @@
+<% content_for(:title, t("platform.dashboard.title")) %>
+
+<h1 class="text-2xl font-semibold text-matte mb-6"><%= t("platform.dashboard.title") %></h1>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+  <%= render "shared/stat_card", label: t("platform.dashboard.total_tenants"), value: @total_tenants,
+        subtitle: t("platform.dashboard.active_suspended", active: @active_tenants, suspended: @suspended_tenants) %>
+  <%= render "shared/stat_card", label: t("platform.dashboard.total_customers"), value: number_with_delimiter(@total_customers) %>
+  <%= render "shared/stat_card", label: t("platform.dashboard.active_subscriptions"), value: @active_subscriptions %>
+  <%= render "shared/stat_card", label: t("platform.dashboard.mrr"), value: "$#{number_with_delimiter(@mrr)}",
+        subtitle: t("platform.dashboard.per_month") %>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="bg-surface border border-border rounded-xl p-6">
+    <h3 class="text-matte text-sm font-semibold mb-4"><%= t("platform.dashboard.plan_breakdown") %></h3>
+    <div class="space-y-1">
+      <% @plan_breakdown.each do |plan, count| %>
+        <div class="flex items-center justify-between py-1.5 border-b border-border last:border-0">
+          <span class="text-matte text-sm"><%= t_enum(:tenant, :plan, plan) %></span>
+          <span class="text-matte text-sm font-mono"><%= count %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="bg-surface border border-border rounded-xl p-6">
+    <h3 class="text-matte text-sm font-semibold mb-4"><%= t("platform.dashboard.recent_tenants") %></h3>
+    <div class="space-y-1">
+      <% @recent_tenants.each do |tenant| %>
+        <div class="flex items-center justify-between py-1.5 border-b border-border last:border-0">
+          <%= link_to tenant.name, platform_tenant_path(tenant), class: "text-matte text-sm hover:underline" %>
+          <span class="text-secondary text-xs"><%= t_enum(:tenant, :plan, tenant.plan) %> · <%= l(tenant.created_at.to_date, format: :medium) %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

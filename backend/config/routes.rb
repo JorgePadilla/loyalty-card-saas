@@ -30,6 +30,21 @@ Rails.application.routes.draw do
     end
   end
 
+  # Platform (SaaS owner) super-admin — separate auth, sees all tenants
+  namespace :platform do
+    root to: "dashboard#show"
+    resource :session, only: %i[new create destroy]
+    resources :tenants, only: %i[index show] do
+      member do
+        post :suspend
+        post :reactivate
+        patch :update_plan
+        post :impersonate
+      end
+    end
+    resource :impersonation, only: :destroy
+  end
+
   # JSON API for Flutter
   namespace :api do
     namespace :v1 do

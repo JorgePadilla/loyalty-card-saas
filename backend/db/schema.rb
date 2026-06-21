@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_20_172711) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_21_053222) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,6 +48,25 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_20_172711) do
     t.index ["tenant_id", "user_id"], name: "index_loyalty_cards_on_tenant_id_and_user_id", unique: true
     t.index ["tenant_id"], name: "index_loyalty_cards_on_tenant_id"
     t.index ["user_id"], name: "index_loyalty_cards_on_user_id"
+  end
+
+  create_table "platform_admins", force: :cascade do |t|
+    t.string "email_address"
+    t.string "password_digest"
+    t.string "name"
+    t.string "locale"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email_address"], name: "index_platform_admins_on_email_address", unique: true
+  end
+
+  create_table "platform_sessions", force: :cascade do |t|
+    t.bigint "platform_admin_id", null: false
+    t.string "ip_address"
+    t.string "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["platform_admin_id"], name: "index_platform_sessions_on_platform_admin_id"
   end
 
   create_table "point_transactions", force: :cascade do |t|
@@ -272,6 +291,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_20_172711) do
     t.jsonb "settings", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "suspended_at"
     t.index ["slug"], name: "index_tenants_on_slug", unique: true
     t.index ["stripe_customer_id"], name: "index_tenants_on_stripe_customer_id", unique: true
   end
@@ -314,6 +334,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_20_172711) do
   add_foreign_key "campaigns", "tenants"
   add_foreign_key "loyalty_cards", "tenants"
   add_foreign_key "loyalty_cards", "users"
+  add_foreign_key "platform_sessions", "platform_admins"
   add_foreign_key "point_transactions", "loyalty_cards"
   add_foreign_key "point_transactions", "tenants"
   add_foreign_key "point_transactions", "users", column: "staff_id"
